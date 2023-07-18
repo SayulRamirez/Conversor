@@ -18,6 +18,9 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.SystemColor;
+import java.awt.Color;
+import java.awt.Font;
 
 public class Principal extends JFrame {
 
@@ -73,6 +76,13 @@ public class Principal extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel labelTitulo = new JLabel("ELIGE LA CONVERSIÓN A REALIZAR");
+		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 23));
+		labelTitulo.setForeground(new Color(0, 0, 0));
+		labelTitulo.setBounds(30, 31, 446, 37);
+		contentPane.add(labelTitulo);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/flechas.jpg")));
