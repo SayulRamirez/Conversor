@@ -16,6 +16,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class Principal extends JFrame {
 
@@ -42,25 +44,37 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 419, 300);
+		setBounds(100, 100, 513, 357);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBorderPainted(false);
+		setJMenuBar(menuBar);
+		
+		JMenu menuOpciones = new JMenu("Opciones");
+		menuBar.add(menuOpciones);
+		
+		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
+		menuOpciones.add(menuCambiar);
+		
+		JMenuItem menuSalir = new JMenuItem("Salir");
+		menuSalir.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/salir.png")));
+		menuOpciones.add(menuSalir);
+		
+		JMenuItem menuLimpiar = new JMenuItem("Limpiar");
+		menuLimpiar.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/limpiar.png")));
+		menuBar.add(menuLimpiar);
+		
+		JMenuItem menuAcerca = new JMenuItem("Acerca de");
+		menuBar.add(menuAcerca);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JMenuBar menuBarPrincipal = new JMenuBar();
-		menuBarPrincipal.setBounds(0, 0, 403, 22);
-		contentPane.add(menuBarPrincipal);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cambiar conversion");
-		menuBarPrincipal.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Limpiar");
-		menuBarPrincipal.add(mntmNewMenuItem_1);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Salir");
-		menuBarPrincipal.add(mntmNewMenuItem_2);
+		JLabel labelFondo = new JLabel("");
+		labelFondo.setBounds(0, 0, 497, 290);
+		contentPane.add(labelFondo);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
