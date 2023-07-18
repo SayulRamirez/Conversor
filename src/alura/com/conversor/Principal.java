@@ -74,10 +74,15 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel labelFondo = new JLabel("");
-		labelFondo.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
-		labelFondo.setBounds(0, 0, 497, 290);
-		contentPane.add(labelFondo);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/flechas.jpg")));
+		lblNewLabel.setBounds(10, 11, 477, 78);
+		contentPane.add(lblNewLabel);
+		
+		JLabel labelBanner = new JLabel("");
+		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
+		labelBanner.setBounds(0, 0, 497, 290);
+		contentPane.add(labelBanner);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
