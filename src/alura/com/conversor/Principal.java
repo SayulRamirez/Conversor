@@ -75,6 +75,7 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel labelFondo = new JLabel("");
+		labelFondo.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
 		labelFondo.setBounds(0, 0, 497, 290);
 		contentPane.add(labelFondo);
 	}
