@@ -21,10 +21,12 @@ import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JTextField;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textFieldCantidad;
 
 	/**
 	 * Launch the application.
@@ -76,6 +78,15 @@ public class Principal extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		textFieldCantidad = new JTextField();
+		textFieldCantidad.setBounds(195, 114, 189, 20);
+		contentPane.add(textFieldCantidad);
+		textFieldCantidad.setColumns(10);
+		
+		JLabel labelMonto = new JLabel("Ingresa la cantidad para convertir:");
+		labelMonto.setBounds(10, 114, 175, 21);
+		contentPane.add(labelMonto);
 		
 		JLabel labelTitulo = new JLabel("ELIGE LA CONVERSIÓN A REALIZAR");
 		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
