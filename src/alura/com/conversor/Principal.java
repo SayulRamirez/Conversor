@@ -54,6 +54,7 @@ public class Principal extends JFrame {
 		menuBar.add(menuOpciones);
 		
 		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
+		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/conversion.png")));
 		menuOpciones.add(menuCambiar);
 		
 		JMenuItem menuSalir = new JMenuItem("Salir");
@@ -65,6 +66,7 @@ public class Principal extends JFrame {
 		menuBar.add(menuLimpiar);
 		
 		JMenuItem menuAcerca = new JMenuItem("Acerca de");
+		menuAcerca.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/acerca.png")));
 		menuBar.add(menuAcerca);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
