@@ -23,6 +23,9 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+import java.awt.Toolkit;
+import java.awt.Cursor;
 
 public class Principal extends JFrame {
 
@@ -50,10 +53,14 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setTitle("Conversor");
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/alura/com/imagenes/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 513, 412);
+		setBounds(100, 100, 516, 412);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		menuBar.setBorderPainted(false);
 		setJMenuBar(menuBar);
 		
@@ -81,44 +88,61 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel labelEquivalencia = new JLabel("Equivalencia:");
+		labelEquivalencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelEquivalencia.setBounds(21, 246, 97, 21);
+		contentPane.add(labelEquivalencia);
+		
 		JButton btnNewButton = new JButton("Aplicar conversión");
-		btnNewButton.setBounds(88, 307, 298, 27);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setBackground(new Color(0, 0, 0));
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton.setBounds(115, 307, 270, 27);
 		contentPane.add(btnNewButton);
 		
 		textFieldResultado = new JTextField();
-		textFieldResultado.setBounds(104, 243, 219, 27);
+		textFieldResultado.setEditable(false);
+		textFieldResultado.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textFieldResultado.setBounds(115, 246, 270, 27);
 		contentPane.add(textFieldResultado);
 		textFieldResultado.setColumns(10);
 		
 		JComboBox comboBoxFinal = new JComboBox();
-		comboBoxFinal.setBounds(251, 190, 182, 27);
+		comboBoxFinal.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 		
 		JLabel labelA = new JLabel("a:");
-		labelA.setBounds(243, 168, 56, 17);
+		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelA.setBounds(270, 166, 29, 21);
 		contentPane.add(labelA);
 		
 		JComboBox comboBoxInicio = new JComboBox();
-		comboBoxInicio.setBounds(21, 188, 182, 27);
+		comboBoxInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
-		labelCambio.setBounds(24, 165, 84, 20);
+		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelCambio.setBounds(10, 166, 97, 21);
 		contentPane.add(labelCambio);
 		
 		textFieldCantidad = new JTextField();
-		textFieldCantidad.setBounds(251, 114, 189, 43);
+		textFieldCantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textFieldCantidad.setBounds(270, 114, 220, 27);
 		contentPane.add(textFieldCantidad);
 		textFieldCantidad.setColumns(10);
 		
 		JLabel labelMonto = new JLabel("Ingresa la cantidad para convertir:");
-		labelMonto.setBounds(49, 114, 182, 21);
+		labelMonto.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelMonto.setBounds(10, 114, 245, 21);
 		contentPane.add(labelMonto);
 		
 		JLabel labelTitulo = new JLabel("ELIGE LA CONVERSIÓN A REALIZAR");
+		labelTitulo.setBackground(new Color(0, 0, 0));
 		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 23));
-		labelTitulo.setForeground(new Color(0, 0, 0));
+		labelTitulo.setForeground(new Color(64, 0, 0));
 		labelTitulo.setBounds(30, 31, 446, 37);
 		contentPane.add(labelTitulo);
 		
@@ -128,8 +152,12 @@ public class Principal extends JFrame {
 		contentPane.add(labelFondoBanner);
 		
 		JLabel labelBanner = new JLabel("");
+		labelBanner.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		labelBanner.setForeground(new Color(0, 0, 0));
+		labelBanner.setBackground(new Color(0, 0, 0));
+		labelBanner.setBorder(null);
 		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
-		labelBanner.setBounds(0, 0, 497, 345);
+		labelBanner.setBounds(0, 0, 500, 345);
 		contentPane.add(labelBanner);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
