@@ -28,6 +28,7 @@ public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldCantidad;
+	private JTextField textFieldResultado;
 
 	/**
 	 * Launch the application.
@@ -50,7 +51,7 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 513, 357);
+		setBounds(100, 100, 513, 412);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorderPainted(false);
@@ -80,16 +81,33 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(21, 188, 182, 27);
-		contentPane.add(comboBox);
+		JButton btnNewButton = new JButton("Aplicar conversión");
+		btnNewButton.setBounds(88, 307, 298, 27);
+		contentPane.add(btnNewButton);
+		
+		textFieldResultado = new JTextField();
+		textFieldResultado.setBounds(104, 243, 219, 27);
+		contentPane.add(textFieldResultado);
+		textFieldResultado.setColumns(10);
+		
+		JComboBox comboBoxFinal = new JComboBox();
+		comboBoxFinal.setBounds(251, 190, 182, 27);
+		contentPane.add(comboBoxFinal);
+		
+		JLabel labelA = new JLabel("a:");
+		labelA.setBounds(243, 168, 56, 17);
+		contentPane.add(labelA);
+		
+		JComboBox comboBoxInicio = new JComboBox();
+		comboBoxInicio.setBounds(21, 188, 182, 27);
+		contentPane.add(comboBoxInicio);
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setBounds(24, 165, 84, 20);
 		contentPane.add(labelCambio);
 		
 		textFieldCantidad = new JTextField();
-		textFieldCantidad.setBounds(251, 114, 189, 20);
+		textFieldCantidad.setBounds(251, 114, 189, 43);
 		contentPane.add(textFieldCantidad);
 		textFieldCantidad.setColumns(10);
 		
@@ -111,7 +129,7 @@ public class Principal extends JFrame {
 		
 		JLabel labelBanner = new JLabel("");
 		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
-		labelBanner.setBounds(0, 0, 497, 290);
+		labelBanner.setBounds(0, 0, 497, 345);
 		contentPane.add(labelBanner);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
