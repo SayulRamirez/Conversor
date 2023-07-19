@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Toolkit;
+import java.awt.Font;
+import java.awt.Cursor;
 
 public class Menu extends JFrame {
 
@@ -34,6 +37,8 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/alura/com/imagenes/iconoDos.png")));
 		setTitle("Menu de Conversiones");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 307, 398);
@@ -44,21 +49,26 @@ public class Menu extends JFrame {
 		PaneMenu.setLayout(null);
 		
 		JLabel labelTitulo = new JLabel("Elige el tipo de conversion a realizar");
+		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 14));
 		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo.setBounds(10, 35, 271, 26);
 		PaneMenu.add(labelTitulo);
 		
 		JLabel labelDos = new JLabel("Conversiones disponibles: ");
+		labelDos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelDos.setHorizontalAlignment(SwingConstants.CENTER);
-		labelDos.setBounds(10, 124, 134, 26);
+		labelDos.setBounds(10, 124, 170, 26);
 		PaneMenu.add(labelDos);
 		
 		JComboBox comboBoxSeleccion = new JComboBox();
-		comboBoxSeleccion.setBounds(10, 158, 271, 22);
+		comboBoxSeleccion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBoxSeleccion.setBounds(10, 158, 271, 27);
 		PaneMenu.add(comboBoxSeleccion);
 		
 		JButton botonComenzar = new JButton("Comenzar conversion");
-		botonComenzar.setBounds(10, 298, 271, 23);
+		botonComenzar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		botonComenzar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		botonComenzar.setBounds(10, 298, 271, 27);
 		PaneMenu.add(botonComenzar);
 	}
 }
