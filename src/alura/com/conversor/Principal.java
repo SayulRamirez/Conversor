@@ -22,6 +22,7 @@ import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 public class Principal extends JFrame {
 
@@ -79,6 +80,14 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(21, 188, 182, 27);
+		contentPane.add(comboBox);
+		
+		JLabel labelCambio = new JLabel("Cambiar de: ");
+		labelCambio.setBounds(24, 165, 84, 20);
+		contentPane.add(labelCambio);
+		
 		textFieldCantidad = new JTextField();
 		textFieldCantidad.setBounds(251, 114, 189, 20);
 		contentPane.add(textFieldCantidad);
@@ -95,10 +104,10 @@ public class Principal extends JFrame {
 		labelTitulo.setBounds(30, 31, 446, 37);
 		contentPane.add(labelTitulo);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/flechas.jpg")));
-		lblNewLabel.setBounds(10, 11, 477, 78);
-		contentPane.add(lblNewLabel);
+		JLabel labelFondoBanner = new JLabel("");
+		labelFondoBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/flechas.jpg")));
+		labelFondoBanner.setBounds(10, 11, 477, 78);
+		contentPane.add(labelFondoBanner);
 		
 		JLabel labelBanner = new JLabel("");
 		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
