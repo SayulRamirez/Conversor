@@ -95,7 +95,7 @@ public class Principal extends JFrame {
 		
 		JButton btnNewButton = new JButton("Aplicar conversión");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBackground(new Color(0, 0, 0));
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton.setBounds(115, 307, 270, 27);
 		contentPane.add(btnNewButton);
@@ -128,6 +128,7 @@ public class Principal extends JFrame {
 		contentPane.add(labelCambio);
 		
 		textFieldCantidad = new JTextField();
+		textFieldCantidad.setBorder(null);
 		textFieldCantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textFieldCantidad.setBounds(270, 114, 220, 27);
 		contentPane.add(textFieldCantidad);
