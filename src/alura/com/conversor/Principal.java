@@ -80,12 +80,12 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		textFieldCantidad = new JTextField();
-		textFieldCantidad.setBounds(195, 114, 189, 20);
+		textFieldCantidad.setBounds(251, 114, 189, 20);
 		contentPane.add(textFieldCantidad);
 		textFieldCantidad.setColumns(10);
 		
 		JLabel labelMonto = new JLabel("Ingresa la cantidad para convertir:");
-		labelMonto.setBounds(10, 114, 175, 21);
+		labelMonto.setBounds(49, 114, 182, 21);
 		contentPane.add(labelMonto);
 		
 		JLabel labelTitulo = new JLabel("ELIGE LA CONVERSIÓN A REALIZAR");
