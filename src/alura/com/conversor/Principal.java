@@ -53,11 +53,12 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setLocationByPlatform(true);
 		setTitle("Conversor");
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/alura/com/imagenes/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 516, 412);
+		setBounds(100, 100, 516, 410);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -158,7 +159,7 @@ public class Principal extends JFrame {
 		labelBanner.setBackground(new Color(0, 0, 0));
 		labelBanner.setBorder(null);
 		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
-		labelBanner.setBounds(0, 0, 500, 345);
+		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
