@@ -144,21 +144,16 @@ public class Principal extends JFrame {
 		labelTitulo.setBackground(new Color(0, 0, 0));
 		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 23));
-		labelTitulo.setForeground(new Color(64, 0, 0));
+		labelTitulo.setForeground(new Color(106, 0, 0));
 		labelTitulo.setBounds(30, 31, 446, 37);
 		contentPane.add(labelTitulo);
-		
-		JLabel labelFondoBanner = new JLabel("");
-		labelFondoBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/flechas.jpg")));
-		labelFondoBanner.setBounds(10, 11, 477, 78);
-		contentPane.add(labelFondoBanner);
 		
 		JLabel labelBanner = new JLabel("");
 		labelBanner.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		labelBanner.setForeground(new Color(0, 0, 0));
 		labelBanner.setBackground(new Color(0, 0, 0));
 		labelBanner.setBorder(null);
-		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondo.png")));
+		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondoTres.png")));
 		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
 	}
