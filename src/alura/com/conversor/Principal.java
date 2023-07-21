@@ -94,12 +94,12 @@ public class Principal extends JFrame {
 		labelEquivalencia.setBounds(21, 246, 97, 21);
 		contentPane.add(labelEquivalencia);
 		
-		JButton btnNewButton = new JButton("Aplicar conversión");
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnNewButton.setBounds(115, 307, 270, 27);
-		contentPane.add(btnNewButton);
+		JButton botonAplicar = new JButton("Aplicar conversión");
+		botonAplicar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		botonAplicar.setBackground(new Color(255, 255, 255));
+		botonAplicar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		botonAplicar.setBounds(115, 307, 270, 27);
+		contentPane.add(botonAplicar);
 		
 		textFieldResultado = new JTextField();
 		textFieldResultado.setEditable(false);
