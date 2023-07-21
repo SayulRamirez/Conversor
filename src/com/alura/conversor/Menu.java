@@ -1,8 +1,9 @@
 package com.alura.conversor;
 
-import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import com.alura.logicaprincipal.LogicaMenu;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,6 +12,8 @@ public class Menu extends JFrame implements ActionListener {
 
 	private JPanel PaneMenu;
 	private JButton botonComenzar;
+	private JComboBox<String> comboBoxSeleccion;
+	LogicaMenu logica = new LogicaMenu();
 
 	/**
 	 * Launch the application.
@@ -55,10 +58,14 @@ public class Menu extends JFrame implements ActionListener {
 		labelDos.setBounds(10, 124, 170, 26);
 		PaneMenu.add(labelDos);
 		
-		JComboBox comboBoxSeleccion = new JComboBox();
+		comboBoxSeleccion = new JComboBox();
 		comboBoxSeleccion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxSeleccion.setBounds(10, 158, 271, 27);
 		PaneMenu.add(comboBoxSeleccion);
+		
+		for(int i = 0; i < logica.getLongitud(); i++) {
+			comboBoxSeleccion.addItem(logica.getOpciones(i));			
+		}
 		
 		botonComenzar = new JButton("Comenzar conversion");
 		botonComenzar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -77,7 +84,14 @@ public class Menu extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource() == botonComenzar) {
-			System.out.println("Hola");
+			String opcionElegida = comboBoxSeleccion.getSelectedItem().toString();
+			
+			Principal principal = new Principal();
+			principal.setLocationByPlatform(true);
+			principal.setVisible(true);
+			principal.setResizable(false);
+			principal.setBounds(100, 100, 516, 410);
+			this.setVisible(false);
 		}
 		
 	}
