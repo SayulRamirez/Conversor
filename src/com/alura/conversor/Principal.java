@@ -9,9 +9,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JCheckBoxMenuItem;
@@ -24,14 +27,24 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
+
+import com.alura.logicaprincipal.Conversor;
+
 import java.awt.Toolkit;
 import java.awt.Cursor;
 
-public class Principal extends JFrame {
+public class Principal extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textFieldCantidad;
 	private JTextField textFieldResultado;
+	private JComboBox<String> comboBoxInicio, comboBoxFinal;
+	private JButton botonAplicar;
+	Conversor conversor = new Conversor();
+	
+	String valorInicial;
+	String inicio;
+	String conversionFinal;
 
 	/**
 	 * Create the frame.
@@ -78,12 +91,13 @@ public class Principal extends JFrame {
 		labelEquivalencia.setBounds(21, 246, 97, 21);
 		contentPane.add(labelEquivalencia);
 		
-		JButton botonAplicar = new JButton("Aplicar conversión");
+	    botonAplicar = new JButton("Aplicar conversión");
 		botonAplicar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botonAplicar.setBackground(new Color(255, 255, 255));
 		botonAplicar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		botonAplicar.setBounds(115, 307, 270, 27);
 		contentPane.add(botonAplicar);
+		botonAplicar.addActionListener(this);
 		
 		textFieldResultado = new JTextField();
 		textFieldResultado.setEditable(false);
@@ -92,20 +106,29 @@ public class Principal extends JFrame {
 		contentPane.add(textFieldResultado);
 		textFieldResultado.setColumns(10);
 		
-		JComboBox comboBoxFinal = new JComboBox();
+		comboBoxFinal = new JComboBox();
 		comboBoxFinal.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
+		
+		for(int i = 0; i < conversor.getLongitud(); i++) {
+			comboBoxFinal.addItem(conversor.getOpciones(i));			
+		}
 		
 		JLabel labelA = new JLabel("a:");
 		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelA.setBounds(270, 166, 29, 21);
 		contentPane.add(labelA);
 		
-		JComboBox comboBoxInicio = new JComboBox();
+		
+		comboBoxInicio = new JComboBox<>();
 		comboBoxInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
+		
+		for(int i = 0; i < conversor.getLongitud(); i++) {
+			comboBoxInicio.addItem(conversor.getOpciones(i));			
+		}
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -140,5 +163,47 @@ public class Principal extends JFrame {
 		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/fondoTres.png")));
 		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
+		
+		
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource() == botonAplicar) {
+			valorInicial = textFieldCantidad.getText();
+			inicio = comboBoxInicio.getSelectedItem().toString();
+			conversionFinal = comboBoxFinal.getSelectedItem().toString();	
+			//System.out.println("Hola");
+		}
+		
+		if (Principal.isNumeric(valorInicial) || inicio.equals("") || conversionFinal.equals("")) {
+			JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar las dos opciones");
+		}
+	}
+	
+
+	  public static boolean isNumeric(String str){
+	      try{
+	          double d = Double.parseDouble(str);
+	      } catch(NumberFormatException nfe){
+	    	  return true;  	  
+	      }
+	      return false;
+	  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
