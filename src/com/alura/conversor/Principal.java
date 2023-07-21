@@ -177,8 +177,9 @@ public class Principal extends JFrame implements ActionListener {
 			//System.out.println("Hola");
 		}
 		
-		if (Principal.isNumeric(valorInicial) || inicio.equals("") || conversionFinal.equals("")) {
-			JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar las dos opciones");
+		if (Principal.isNumeric(valorInicial) || inicio.equals("") || conversionFinal.equals("") || inicio.equals(conversionFinal)) {
+			JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
+					+ "las dos opciones y las opciones deben ser diferentes");
 		}
 	}
 	
