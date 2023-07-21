@@ -1,4 +1,4 @@
-package alura.com.conversor;
+package com.alura.conversor;
 
 import java.awt.EventQueue;
 
