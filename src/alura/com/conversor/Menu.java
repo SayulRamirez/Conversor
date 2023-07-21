@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import java.awt.Toolkit;
 import java.awt.Font;
 import java.awt.Cursor;
+import javax.swing.ImageIcon;
 
 public class Menu extends JFrame {
 
@@ -70,5 +71,10 @@ public class Menu extends JFrame {
 		botonComenzar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		botonComenzar.setBounds(10, 298, 271, 27);
 		PaneMenu.add(botonComenzar);
+		
+		JLabel labelFondoMenu = new JLabel("");
+		labelFondoMenu.setIcon(new ImageIcon(Menu.class.getResource("/alura/com/imagenes/fondoTres.png")));
+		labelFondoMenu.setBounds(0, 0, 291, 348);
+		PaneMenu.add(labelFondoMenu);
 	}
 }
