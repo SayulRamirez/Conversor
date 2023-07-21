@@ -1,22 +1,16 @@
 package com.alura.conversor;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.Toolkit;
-import java.awt.Font;
-import java.awt.Cursor;
-import javax.swing.ImageIcon;
 
-public class Menu extends JFrame {
+import java.awt.*;
+import java.awt.event.*;
+
+public class Menu extends JFrame implements ActionListener {
 
 	private JPanel PaneMenu;
+	private JButton botonComenzar;
 
 	/**
 	 * Launch the application.
@@ -39,7 +33,7 @@ public class Menu extends JFrame {
 	 */
 	public Menu() {
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/alura/com/imagenes/iconoDos.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/com/alura/imagenes/iconoDos.png")));
 		setTitle("Menu de Conversiones");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 307, 398);
@@ -66,15 +60,25 @@ public class Menu extends JFrame {
 		comboBoxSeleccion.setBounds(10, 158, 271, 27);
 		PaneMenu.add(comboBoxSeleccion);
 		
-		JButton botonComenzar = new JButton("Comenzar conversion");
+		botonComenzar = new JButton("Comenzar conversion");
 		botonComenzar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botonComenzar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		botonComenzar.setBounds(10, 298, 271, 27);
 		PaneMenu.add(botonComenzar);
+		botonComenzar.addActionListener(this);
 		
 		JLabel labelFondoMenu = new JLabel("");
-		labelFondoMenu.setIcon(new ImageIcon(Menu.class.getResource("/alura/com/imagenes/fondoTres.png")));
+		labelFondoMenu.setIcon(new ImageIcon(Menu.class.getResource("/com/alura/imagenes/fondoTres.png")));
 		labelFondoMenu.setBounds(0, 0, 291, 348);
 		PaneMenu.add(labelFondoMenu);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if(e.getSource() == botonComenzar) {
+			System.out.println("Hola");
+		}
+		
 	}
 }

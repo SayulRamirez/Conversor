@@ -56,7 +56,7 @@ public class Principal extends JFrame {
 		setLocationByPlatform(true);
 		setTitle("Conversor");
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/alura/com/imagenes/iconoDos.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/com/alura/imagenes/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 516, 410);
 		
@@ -69,19 +69,19 @@ public class Principal extends JFrame {
 		menuBar.add(menuOpciones);
 		
 		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
-		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/conversion.png")));
+		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/conversion.png")));
 		menuOpciones.add(menuCambiar);
 		
 		JMenuItem menuSalir = new JMenuItem("Salir");
-		menuSalir.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/salir.png")));
+		menuSalir.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/salir.png")));
 		menuOpciones.add(menuSalir);
 		
 		JMenuItem menuLimpiar = new JMenuItem("Limpiar");
-		menuLimpiar.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/limpiar.png")));
+		menuLimpiar.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/limpiar.png")));
 		menuBar.add(menuLimpiar);
 		
 		JMenuItem menuAcerca = new JMenuItem("Acerca de");
-		menuAcerca.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/acerca.png")));
+		menuAcerca.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/acerca.png")));
 		menuBar.add(menuAcerca);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -153,7 +153,7 @@ public class Principal extends JFrame {
 		labelBanner.setForeground(new Color(0, 0, 0));
 		labelBanner.setBackground(new Color(0, 0, 0));
 		labelBanner.setBorder(null);
-		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/alura/com/imagenes/fondoTres.png")));
+		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/fondoTres.png")));
 		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
 	}
