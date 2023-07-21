@@ -68,7 +68,7 @@ public class Menu extends JFrame {
 		
 		JButton botonComenzar = new JButton("Comenzar conversion");
 		botonComenzar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		botonComenzar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		botonComenzar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		botonComenzar.setBounds(10, 298, 271, 27);
 		PaneMenu.add(botonComenzar);
 		
