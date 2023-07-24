@@ -40,6 +40,7 @@ public class Principal extends JFrame implements ActionListener {
 	private JTextField textFieldResultado;
 	private JComboBox<String> comboBoxInicio, comboBoxFinal;
 	private JButton botonAplicar;
+	private JMenuItem menuCambiar, menuSalir, menuLimpiar, menuAcerca;
 	Conversor conversor = new Conversor();
 	
 	String valorInicial;
@@ -67,21 +68,25 @@ public class Principal extends JFrame implements ActionListener {
 		JMenu menuOpciones = new JMenu("Opciones");
 		menuBar.add(menuOpciones);
 		
-		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
+		menuCambiar = new JMenuItem("Cambiar tipo de conversión");
 		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/conversion.png")));
 		menuOpciones.add(menuCambiar);
+		menuCambiar.addActionListener(this);
 		
-		JMenuItem menuSalir = new JMenuItem("Salir");
+		menuSalir = new JMenuItem("Salir");
 		menuSalir.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/salir.png")));
 		menuOpciones.add(menuSalir);
+		menuSalir.addActionListener(this);
 		
-		JMenuItem menuLimpiar = new JMenuItem("Limpiar");
+		menuLimpiar = new JMenuItem("Limpiar");
 		menuLimpiar.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/limpiar.png")));
 		menuBar.add(menuLimpiar);
+		menuLimpiar.addActionListener(this);
 		
-		JMenuItem menuAcerca = new JMenuItem("Acerca de");
+		menuAcerca = new JMenuItem("Acerca de");
 		menuAcerca.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/acerca.png")));
 		menuBar.add(menuAcerca);
+		menuAcerca.addActionListener(this);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -171,6 +176,15 @@ public class Principal extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == menuCambiar) {
+			Menu menu = new Menu();
+			menu.setLocationByPlatform(true);
+			menu.setVisible(true);
+			menu.setResizable(false);
+			menu.setBounds(100, 100, 307, 398);
+			this.setVisible(false);
+		}
 		
 		
 		if (e.getSource() == botonAplicar) {
