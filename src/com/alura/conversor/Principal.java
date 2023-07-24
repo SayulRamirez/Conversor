@@ -186,6 +186,17 @@ public class Principal extends JFrame implements ActionListener {
 			this.setVisible(false);
 		}
 		
+		if(e.getSource() == menuSalir) {
+			System.exit(WIDTH);
+		}
+		
+		if(e.getSource() == menuLimpiar) {
+			textFieldCantidad.setText("");
+			textFieldResultado.setText("");
+			comboBoxInicio.setSelectedIndex(0);
+			comboBoxFinal.setSelectedIndex(0);
+		}
+		
 		
 		if (e.getSource() == botonAplicar) {
 			valorInicial = textFieldCantidad.getText();
