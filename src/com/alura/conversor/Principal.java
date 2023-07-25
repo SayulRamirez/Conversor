@@ -44,7 +44,7 @@ public class Principal extends JFrame implements ActionListener {
 	Temperatura temperatura = new Temperatura();
 	
 	String valorInicial;
-	String inicio;
+	String conversionInicial;
 	String conversionFinal;
 	Double resultado;
 	
@@ -200,59 +200,18 @@ public class Principal extends JFrame implements ActionListener {
 		
 		if (e.getSource() == botonAplicar) {
 			valorInicial = textFieldCantidad.getText();
-			inicio = comboBoxInicio.getSelectedItem().toString();
+			conversionInicial = comboBoxInicio.getSelectedItem().toString();
 			conversionFinal = comboBoxFinal.getSelectedItem().toString();	
 			//System.out.println("Hola");
 			
 			
-			if (Principal.isNumeric(valorInicial) || inicio.equals("") || conversionFinal.equals("") || inicio.equals(conversionFinal)) {
+			if (Principal.isNumeric(valorInicial) || conversionInicial.equals("") || conversionFinal.equals("") || conversionInicial.equals(conversionFinal)) {
 				JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
 						+ "las dos opciones y las opciones deben ser diferentes");
 			} else {
-				double valorInicialDos = Double.parseDouble(valorInicial);
-				
-//			"Celsius",
-//			"Kelvin",
-//			"Fahrenheit",
-//			"Rankine"
-				
-				if(inicio.equals("Celsius") && conversionFinal.equals("Kelvin")) {
-					resultado = valorInicialDos + 273;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Celsius") && conversionFinal.equals("Fahrenheit")) {
-					resultado = valorInicialDos * 1.8 + 32;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Celsius") && conversionFinal.equals("Rankine")) {
-					resultado = (valorInicialDos * 1.8 + 32) + 460;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Kelvin") && conversionFinal.equals("Celsius")) {
-					resultado = valorInicialDos - 273;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Kelvin") && conversionFinal.equals("Fahrenheit")) {
-					resultado = ((valorInicialDos - 273) * 1.8) + 32;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Kelvin") && conversionFinal.equals("Rankine")) {
-					resultado = (((valorInicialDos - 273) * 1.8) + 32) + 460;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Fahrenheit") && conversionFinal.equals("Celsius")) {
-					resultado =  (valorInicialDos - 32) / 1.8;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Fahrenheit") && conversionFinal.equals("Kelvin")) {
-					resultado = ((valorInicialDos - 32) / 1.8) + 273;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Fahrenheit") && conversionFinal.equals("Rankine")) {
-					resultado =  valorInicialDos + 460;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Rankine") && conversionFinal.equals("Celsius")) {
-					resultado = ((valorInicialDos - 460) - 32) / 1.8;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Rankine") && conversionFinal.equals("Kelvin")) {
-					resultado = (((valorInicialDos - 460) - 32) / 1.8) + 273;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				} else if (inicio.equals("Rankine") && conversionFinal.equals("Fahrenheit")) {
-					resultado = valorInicialDos - 460;
-					textFieldResultado.setText("Equivale a " + resultado + " " + conversionFinal); 
-				}
+				double inicio = Double.parseDouble(valorInicial);
+
+				temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
 			}
 		}
 		
