@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 
-import com.alura.logicaprincipal.Conversor;
+import com.alura.logicaprincipal.Temperatura;
 
 import java.awt.Toolkit;
 import java.awt.Cursor;
@@ -41,7 +41,7 @@ public class Principal extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxInicio, comboBoxFinal;
 	private JButton botonAplicar;
 	private JMenuItem menuCambiar, menuSalir, menuLimpiar, menuAcerca;
-	Conversor conversor = new Conversor();
+	Temperatura temperatura = new Temperatura();
 	
 	String valorInicial;
 	String inicio;
@@ -118,8 +118,8 @@ public class Principal extends JFrame implements ActionListener {
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 		
-		for(int i = 0; i < conversor.getLongitud(); i++) {
-			comboBoxFinal.addItem(conversor.getOpciones(i));			
+		for(int i = 0; i < temperatura.getLongitud(); i++) {
+			comboBoxFinal.addItem(temperatura.getOpciones(i));			
 		}
 		
 		JLabel labelA = new JLabel("a:");
@@ -133,8 +133,8 @@ public class Principal extends JFrame implements ActionListener {
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 		
-		for(int i = 0; i < conversor.getLongitud(); i++) {
-			comboBoxInicio.addItem(conversor.getOpciones(i));			
+		for(int i = 0; i < temperatura.getLongitud(); i++) {
+			comboBoxInicio.addItem(temperatura.getOpciones(i));			
 		}
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");

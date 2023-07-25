@@ -3,7 +3,7 @@ package com.alura.logicaprincipal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conversor {
+public class Temperatura {
 
 	private String[] temperaturas = {
 			"",
