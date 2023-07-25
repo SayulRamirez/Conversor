@@ -14,7 +14,7 @@ public class Menu extends JFrame implements ActionListener {
 	private JButton botonComenzar;
 	private JComboBox<String> comboBoxSeleccion;
 	private LogicaMenu logica = new LogicaMenu();
-	private String opcionElegida;
+	public static String opcionElegida = "";
 
 	/**
 	 * Launch the application.
@@ -83,14 +83,18 @@ public class Menu extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource() == botonComenzar) {
-			opcionElegida = comboBoxSeleccion.getSelectedItem().toString();
+			opcionElegida = comboBoxSeleccion.getSelectedItem().toString().trim();
 			
-			Principal principal = new Principal();
-			principal.setLocationByPlatform(true);
-			principal.setVisible(true);
-			principal.setResizable(false);
-			principal.setBounds(100, 100, 516, 410);
-			this.setVisible(false);
+			if(opcionElegida.equals("")) {
+				JOptionPane.showMessageDialog(null, "Debes seleccionar una opcion");
+			} else {
+				Principal principal = new Principal();
+				principal.setLocationByPlatform(true);
+				principal.setVisible(true);
+				principal.setResizable(false);
+				principal.setBounds(100, 100, 516, 410);
+				this.setVisible(false);
+			}
 		}
 		
 	}

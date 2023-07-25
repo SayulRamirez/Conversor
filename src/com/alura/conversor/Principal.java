@@ -49,8 +49,7 @@ public class Principal extends JFrame implements ActionListener {
 	String conversionInicial;
 	String conversionFinal;
 	Double resultado;
-	
-
+	String opcion;
 	/**
 	 * Create the frame.
 	 */
@@ -61,6 +60,7 @@ public class Principal extends JFrame implements ActionListener {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/com/alura/imagenes/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 516, 410);
+		opcion = menu.opcionElegida;
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -115,12 +115,14 @@ public class Principal extends JFrame implements ActionListener {
 		contentPane.add(textFieldResultado);
 		textFieldResultado.setColumns(10);
 		
-		comboBoxFinal = new JComboBox();
+		comboBoxFinal = new JComboBox<>();
 		comboBoxFinal.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 		
-		temperatura.anadirDatos(comboBoxFinal);
+		if(opcion.equals("Temperaturas")) {
+			temperatura.anadirDatos(comboBoxFinal);			
+		}
 		
 		JLabel labelA = new JLabel("a:");
 		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -133,7 +135,9 @@ public class Principal extends JFrame implements ActionListener {
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 		
-		temperatura.anadirDatos(comboBoxInicio);
+		if(opcion.equals("Temperaturas")) {
+			temperatura.anadirDatos(comboBoxInicio);			
+		}
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -200,8 +204,6 @@ public class Principal extends JFrame implements ActionListener {
 			valorInicial = textFieldCantidad.getText();
 			conversionInicial = comboBoxInicio.getSelectedItem().toString();
 			conversionFinal = comboBoxFinal.getSelectedItem().toString();	
-			//System.out.println("Hola");
-			
 			
 			if (Principal.isNumeric(valorInicial) || conversionInicial.equals("") || conversionFinal.equals("") || conversionInicial.equals(conversionFinal)) {
 				JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"

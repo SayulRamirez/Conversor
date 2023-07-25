@@ -1,7 +1,6 @@
 package com.alura.logicaprincipal;
 
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class Temperatura {
 
@@ -14,13 +13,9 @@ public class Temperatura {
 			"Rankine"
 	};
 	
-//	public Temperatura(JTextField t,String conversionInicial, String conversionFinal, double inicio) {
-//		resolver(t, conversionInicial, conversionFinal, inicio);
-//	}
-	
 	public void anadirDatos(JComboBox<String> combo) {
-		  for(int i = 0; i < temperaturas.length; i++) {
-				combo.addItem(temperaturas[i]);			
+		for(int i = 0; i < temperaturas.length; i++) {
+			combo.addItem(temperaturas[i]);			
 			}
 	}
 	
