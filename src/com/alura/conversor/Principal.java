@@ -120,9 +120,7 @@ public class Principal extends JFrame implements ActionListener {
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 		
-		for(int i = 0; i < temperatura.getLongitud(); i++) {
-			comboBoxFinal.addItem(temperatura.getOpciones(i));			
-		}
+		temperatura.anadirDatos(comboBoxFinal);
 		
 		JLabel labelA = new JLabel("a:");
 		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -135,9 +133,7 @@ public class Principal extends JFrame implements ActionListener {
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 		
-		for(int i = 0; i < temperatura.getLongitud(); i++) {
-			comboBoxInicio.addItem(temperatura.getOpciones(i));			
-		}
+		temperatura.anadirDatos(comboBoxInicio);
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
