@@ -13,7 +13,7 @@ public class Menu extends JFrame implements ActionListener {
 	private JPanel PaneMenu;
 	private JButton botonComenzar;
 	private JComboBox<String> comboBoxSeleccion;
-	LogicaMenu logica = new LogicaMenu();
+	private LogicaMenu logica = new LogicaMenu();
 	private String opcionElegida;
 
 	/**
