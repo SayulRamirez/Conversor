@@ -64,9 +64,7 @@ public class Menu extends JFrame implements ActionListener {
 		comboBoxSeleccion.setBounds(10, 158, 271, 27);
 		PaneMenu.add(comboBoxSeleccion);
 		
-		for(int i = 0; i < logica.getLongitud(); i++) {
-			comboBoxSeleccion.addItem(logica.getOpciones(i));			
-		}
+		logica.anadirDatos(comboBoxSeleccion);
 		
 		botonComenzar = new JButton("Comenzar conversion");
 		botonComenzar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

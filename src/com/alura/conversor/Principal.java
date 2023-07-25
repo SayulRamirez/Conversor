@@ -41,7 +41,9 @@ public class Principal extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxInicio, comboBoxFinal;
 	private JButton botonAplicar;
 	private JMenuItem menuCambiar, menuSalir, menuLimpiar, menuAcerca;
-	Temperatura temperatura = new Temperatura();
+	private Temperatura temperatura = new Temperatura();
+	private Menu menu = new Menu();
+	
 	
 	String valorInicial;
 	String conversionInicial;
@@ -226,6 +228,7 @@ public class Principal extends JFrame implements ActionListener {
 	      }
 	      return false;
 	  }
+	  
 }
 
 
