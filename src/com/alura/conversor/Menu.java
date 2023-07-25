@@ -59,7 +59,7 @@ public class Menu extends JFrame implements ActionListener {
 		labelDos.setBounds(10, 124, 170, 26);
 		PaneMenu.add(labelDos);
 		
-		comboBoxSeleccion = new JComboBox();
+		comboBoxSeleccion = new JComboBox<>();
 		comboBoxSeleccion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxSeleccion.setBounds(10, 158, 271, 27);
 		PaneMenu.add(comboBoxSeleccion);
