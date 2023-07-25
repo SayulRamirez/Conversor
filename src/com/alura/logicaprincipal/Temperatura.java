@@ -1,5 +1,6 @@
 package com.alura.logicaprincipal;
 
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 public class Temperatura {
@@ -17,12 +18,10 @@ public class Temperatura {
 //		resolver(t, conversionInicial, conversionFinal, inicio);
 //	}
 	
-	public String getOpciones(int i) {
-		 return temperaturas[i];
-	}
-	
-	public int getLongitud() {
-		return this.temperaturas.length;
+	public void anadirDatos(JComboBox<String> combo) {
+		  for(int i = 0; i < temperaturas.length; i++) {
+				combo.addItem(temperaturas[i]);			
+			}
 	}
 	
 	public void celsiusKelvin(double inicio) {
