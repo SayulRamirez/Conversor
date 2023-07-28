@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 
+import com.alura.logicaprincipal.TazaConversion;
 import com.alura.logicaprincipal.Temperatura;
 
 import java.awt.Toolkit;
@@ -211,7 +212,8 @@ public class Principal extends JFrame implements ActionListener {
 			} else {
 				double inicio = Double.parseDouble(valorInicial);
 
-				temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
+				//temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
+				textFieldResultado.setText(Double.toString(TazaConversion.DOLAR_ESTERLINA.getValor()));
 			}
 		}
 		
