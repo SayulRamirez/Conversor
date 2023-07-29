@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 
+import com.alura.logicaprincipal.Divisas;
 import com.alura.logicaprincipal.TazaConversion;
 import com.alura.logicaprincipal.Temperatura;
 
@@ -43,6 +44,7 @@ public class Principal extends JFrame implements ActionListener {
 	private JButton botonAplicar;
 	private JMenuItem menuCambiar, menuSalir, menuLimpiar, menuAcerca;
 	private Temperatura temperatura = new Temperatura();
+	private Divisas divisas = new Divisas();
 	private Menu menu = new Menu();
 	
 	
@@ -121,9 +123,7 @@ public class Principal extends JFrame implements ActionListener {
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 		
-		if(opcion.equals("Temperaturas")) {
-			temperatura.anadirDatos(comboBoxFinal);			
-		}
+		cargarCombo(comboBoxFinal);
 		
 		JLabel labelA = new JLabel("a:");
 		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -136,9 +136,7 @@ public class Principal extends JFrame implements ActionListener {
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 		
-		if(opcion.equals("Temperaturas")) {
-			temperatura.anadirDatos(comboBoxInicio);			
-		}
+		cargarCombo(comboBoxInicio);
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -229,6 +227,13 @@ public class Principal extends JFrame implements ActionListener {
 	      return false;
 	  }
 	  
+	  private void cargarCombo(JComboBox<String> combo) {
+		  if(opcion.equals("Temperaturas")) {
+				temperatura.anadirDatos(combo);			
+			}  else if ("Divisas".equals(opcion)) {
+				divisas.getDivisas(combo);
+			}
+	  }
 }
 
 
