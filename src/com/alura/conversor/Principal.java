@@ -53,6 +53,7 @@ public class Principal extends JFrame implements ActionListener {
 	String conversionFinal;
 	Double resultado;
 	String opcion;
+	double inicio;
 	/**
 	 * Create the frame.
 	 */
@@ -208,10 +209,8 @@ public class Principal extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
 						+ "las dos opciones y las opciones deben ser diferentes");
 			} else {
-				double inicio = Double.parseDouble(valorInicial);
-
-				//temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
-				textFieldResultado.setText(Double.toString(TazaConversion.DOLAR_ESTERLINA.getValor()));
+				inicio = Double.parseDouble(valorInicial);
+				solucionConversion(opcion);
 			}
 		}
 		
@@ -232,6 +231,14 @@ public class Principal extends JFrame implements ActionListener {
 				temperatura.anadirDatos(combo);			
 			}  else if ("Divisas".equals(opcion)) {
 				divisas.getDivisas(combo);
+			}
+	  }
+	  
+	  private void solucionConversion(String opcion) {
+		  if("Temperaturas".equals(opcion)) {
+			  temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
+			}  else if ("Divisas".equals(opcion)) {
+				divisas.solucionarDivisas(textFieldResultado, conversionInicial, conversionFinal, inicio);
 			}
 	  }
 }
