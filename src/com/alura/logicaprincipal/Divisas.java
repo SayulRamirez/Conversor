@@ -47,7 +47,7 @@ public class Divisas {
 			for(int j = 1; j < divisas.length; j++) {
 				
 				if(divisas[i].equals(conversionInicial) && divisas[j].equals(conversionFinal)) {
-					resultado = (inicio / Double.parseDouble(taza[i])) * Double.parseDouble(taza[j]);					
+				resultado = Math.round((inicio / Double.parseDouble(taza[i])) * Double.parseDouble(taza[j])*100.0) / 100.0;
 				}
 			}
 		}
