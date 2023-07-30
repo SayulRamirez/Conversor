@@ -40,7 +40,8 @@ public class Menu extends JFrame implements ActionListener {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/com/alura/imagenes/iconoDos.png")));
 		setTitle("Menu de Conversiones");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 307, 398);
+		setBounds(0, 0, 307, 398);
+		setLocationRelativeTo(null);
 		PaneMenu = new JPanel();
 		PaneMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -89,10 +90,10 @@ public class Menu extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Debes seleccionar una opcion");
 			} else {
 				Principal principal = new Principal();
-				principal.setLocationByPlatform(true);
-				principal.setVisible(true);
+				principal.setBounds(0, 0, 516, 410);
 				principal.setResizable(false);
-				principal.setBounds(100, 100, 516, 410);
+				principal.setLocationRelativeTo(null);
+				principal.setVisible(true);
 				this.setVisible(false);
 			}
 		}

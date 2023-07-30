@@ -17,6 +17,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JLabel;
@@ -34,8 +39,9 @@ import com.alura.logicaprincipal.Temperatura;
 
 import java.awt.Toolkit;
 import java.awt.Cursor;
+import java.awt.Desktop;
 
-public class Principal extends JFrame implements ActionListener {
+public class Principal extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField textFieldCantidad;
@@ -46,7 +52,7 @@ public class Principal extends JFrame implements ActionListener {
 	private Temperatura temperatura = new Temperatura();
 	private Divisas divisas = new Divisas();
 	private Menu menu = new Menu();
-	
+	private JLabel labelGitHub, labelLinkedIn, labelNombre, labelContacto;
 	
 	String valorInicial;
 	String conversionInicial;
@@ -58,12 +64,13 @@ public class Principal extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Principal() {
-		setLocationByPlatform(true);
-		setTitle("Conversor");
+		setBounds(0, 0, 516, 410);
+		setLayout(null);
+		setLocationRelativeTo(null);
 		setResizable(false);
+		setTitle("Conversor");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/com/alura/imagenes/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 516, 410);
 		opcion = menu.opcionElegida;
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -173,18 +180,27 @@ public class Principal extends JFrame implements ActionListener {
 		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
 		
+		labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
+		labelGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		labelGitHub.addMouseListener(this);
 		
+		labelLinkedIn = new JLabel("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>");
+		labelLinkedIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		labelLinkedIn.addMouseListener(this);		
+		
+		labelNombre = new JLabel("Desarrollador: Saúl Ramírez");
+		labelContacto = new JLabel("Enlaces de contacto: ");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == menuCambiar) {
-			Menu menu = new Menu();
-			menu.setLocationByPlatform(true);
+			Menu menu = new Menu();			
 			menu.setVisible(true);
 			menu.setResizable(false);
-			menu.setBounds(100, 100, 307, 398);
+			menu.setBounds(0, 0, 307, 398);
+			menu.setLocationRelativeTo(null);
 			this.setVisible(false);
 		}
 		
@@ -197,6 +213,17 @@ public class Principal extends JFrame implements ActionListener {
 			textFieldResultado.setText("");
 			comboBoxInicio.setSelectedIndex(0);
 			comboBoxFinal.setSelectedIndex(0);
+		}
+		
+		if(e.getSource() == menuAcerca) {
+			JLabel[] labelLinks = {
+					labelNombre,
+					labelContacto,
+					labelGitHub,
+					labelLinkedIn
+			};
+			
+			JOptionPane.showMessageDialog(null, labelLinks);
 		}
 		
 		
@@ -241,6 +268,48 @@ public class Principal extends JFrame implements ActionListener {
 				divisas.solucionarDivisas(textFieldResultado, conversionInicial, conversionFinal, inicio);
 			}
 	  }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getClickCount() > 0) {
+            try {
+            	if(e.getSource() == labelGitHub) {
+            		Desktop.getDesktop().browse(new URI("https://github.com/SayulRamirez"));            		
+            	}
+            	
+            	if(e.getSource() == labelLinkedIn) {
+            		Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/sayul-ramirez"));            		
+            	}
+            	
+            } catch (IOException | URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        }	
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 
