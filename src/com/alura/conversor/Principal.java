@@ -11,8 +11,7 @@ import com.alura.logicaprincipal.*;
 public class Principal extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
-	private JTextField textFieldCantidad;
-	private JTextField textFieldResultado;
+	private JTextField textFieldCantidad, textFieldResultado;
 	private JComboBox<String> comboBoxInicio, comboBoxFinal;
 	private JButton botonAplicar;
 	private JMenuItem menuCambiar, menuSalir, menuLimpiar, menuAcerca;
@@ -21,12 +20,9 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	private Menu menu = new Menu();
 	private JLabel labelGitHub, labelLinkedIn, labelNombre, labelContacto;
 	
-	String valorInicial;
-	String conversionInicial;
-	String conversionFinal;
-	Double resultado;
-	String opcion;
-	double inicio;
+	private String valorInicial, conversionInicial, conversionFinal, opcion;
+	private double resultado, inicio;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -195,14 +191,18 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		
 		
 		if (e.getSource() == botonAplicar) {
+			
 			valorInicial = textFieldCantidad.getText();
 			conversionInicial = comboBoxInicio.getSelectedItem().toString();
 			conversionFinal = comboBoxFinal.getSelectedItem().toString();	
 			
-			if (Principal.isNumeric(valorInicial) || conversionInicial.equals("") || conversionFinal.equals("") || conversionInicial.equals(conversionFinal)) {
+			if (Principal.isString(valorInicial) || conversionInicial.equals("") || conversionFinal.equals("") || conversionInicial.equals(conversionFinal)) {
+			
 				JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
 						+ "las dos opciones y las opciones deben ser diferentes");
+				
 			} else {
+				
 				inicio = Double.parseDouble(valorInicial);
 				solucionConversion(opcion);
 			}
@@ -211,30 +211,30 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	}
 	
 
-	  public static boolean isNumeric(String str){
-	      try{
-	          double d = Double.parseDouble(str);
-	      } catch(NumberFormatException nfe){
-	    	  return true;  	  
-	      }
-	      return false;
-	  }
+	public static boolean isString(String str){
+		try{
+			double d = Double.parseDouble(str);
+			} catch(NumberFormatException nfe){
+				return true;  	  
+				}
+		return false;
+	}
 	  
-	  private void cargarCombo(JComboBox<String> combo) {
-		  if(opcion.equals("Temperaturas")) {
-				temperatura.anadirDatos(combo);			
-			}  else if ("Divisas".equals(opcion)) {
-				divisas.getDivisas(combo);
-			}
-	  }
+	private void cargarCombo(JComboBox<String> combo) {
+		if(opcion.equals("Temperaturas")) {
+			temperatura.anadirDatos(combo);			
+		}  else if ("Divisas".equals(opcion)) {
+			divisas.getDivisas(combo);
+		}
+	}
 	  
-	  private void solucionConversion(String opcion) {
-		  if("Temperaturas".equals(opcion)) {
-			  temperatura.resolverTemperatura(textFieldResultado, conversionInicial, conversionFinal, inicio);
-			}  else if ("Divisas".equals(opcion)) {
-				divisas.solucionarDivisas(textFieldResultado, conversionInicial, conversionFinal, inicio);
-			}
-	  }
+	private void solucionConversion(String opcion) {
+		if("Temperaturas".equals(opcion)) {
+			temperatura.resolverTemperatura(textFieldResultado, conversionInicial, conversionFinal, inicio);
+		}  else if ("Divisas".equals(opcion)) {
+			divisas.solucionarDivisas(textFieldResultado, conversionInicial, conversionFinal, inicio);
+		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

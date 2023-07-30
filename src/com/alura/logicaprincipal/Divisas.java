@@ -3,6 +3,13 @@ package com.alura.logicaprincipal;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+/**
+ * CLASE EN LA CUAL SE IMPLEMENTA LOS MÉTODOS Y LOS ATRIBUTOS PARA LA CONVERSIÓN 
+ * DE LAS DIFERENTES DIVISAS DISPONIBLES
+ * @author sayul
+ *
+ */
+
 public class Divisas {
 	
 	private double resultado;
@@ -16,7 +23,7 @@ public class Divisas {
 			"Yen Japonés",
 			"Won sur-coreano"
 	};
-
+	
 	private static final String DOLAR_PESO = "16.81";
 	private static final String DOLAR_DOLAR = "1";
 	private static final String DOLAR_EURO = "0.91";
@@ -34,13 +41,31 @@ public class Divisas {
 			DOLAR_WONG
 	};
 	
+	/**
+	 * MÉTODO PARA CARGAR LOS ITEMS EN EL COMBOBOX
+	 * 
+	 * @param combo
+	 * COMBOBOX DÓNDE SERÁN CARGADOS LOS ITEMS
+	 */
 	public void getDivisas(JComboBox<String> combo) {
 		for(String i: divisas) {
 			combo.addItem(i);
 		}
 	}
 	
-	
+	/**
+	 * EL MÉTODO RESULEVE LA CONVERSIÓN DESEADA POR EL USUARIO
+	 * 
+	 * @param t
+	 * EL TEXTFIELD DÓNDE SERÁ PUESTO EL RESULTADO DE LA CONVERSIÓN
+	 * 
+	 * @param conversionInicial
+	 * TIPO DE DIVISA DE ENTRADA
+	 * @param conversionFinal
+	 * TIPO DE DIVISA DE SALIDA
+	 * @param inicio
+	 * VALOR DE LA DIVISA DE ENTRADA
+	 */
 	public void solucionarDivisas(JTextField t, String conversionInicial, String conversionFinal, double inicio) {
 		
 		for(int i = 1; i < divisas.length; i++) {

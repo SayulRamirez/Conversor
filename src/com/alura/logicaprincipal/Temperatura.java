@@ -2,6 +2,12 @@ package com.alura.logicaprincipal;
 
 import javax.swing.*;
 
+/**
+ * CLASE DÓNDE SE IMPLEMENTAN LOS ATRIBUTOS Y MÉTODOS PARA LA CONVERSIÓN DE LAS TEMPERATURAS
+ * @author sayul
+ *
+ */
+
 public class Temperatura {
 
 	private double resultado;
@@ -12,7 +18,12 @@ public class Temperatura {
 			"Fahrenheit",
 			"Rankine"
 	};
-	
+
+	/**
+	 * MÉTODO PARA AÑADIR LOS ITEMS AL COMBOBOX
+	 * @param combo
+	 * COMBOBOX DÓNDE SERÁN CARGADOS LOS ITEMS
+	 */
 	public void anadirDatos(JComboBox<String> combo) {
 		for(int i = 0; i < temperaturas.length; i++) {
 			combo.addItem(temperaturas[i]);			
@@ -71,6 +82,18 @@ public class Temperatura {
 		t.setText("Equivale a " + this.resultado + " " + conversionFinal); 		
 	}
 	
+	/**
+	 * EL MÉTODO RESULEVE LOS TIPOS DE CONVERSIÓN DE TEMPERATURAS LLAMANDO
+	 * A LOS MÉTODOS ANTERIORES DEPENDIENDO EL TIPO DE CONVERSION A REALIZAR
+	 * @param t 
+	 * TEXTFIELD DÓNDE SERÁ MOSTRADO EL RESULTADO
+	 * @param conversionInicial
+	 * CONVERSIÓN DE ENTRADA
+	 * @param conversionFinal
+	 * CONVERSIÓN DE SALIDA
+	 * @param inicio
+	 * VALOR DE LA CONVERSIÓN DE INICIO
+	 */
 	public void resolverTemperatura(JTextField t,String conversionInicial, String conversionFinal, double inicio) {
 		if(conversionInicial.equals("Celsius") && conversionFinal.equals("Kelvin")) {
 			celsiusKelvin(inicio);
