@@ -19,55 +19,55 @@ public class Temperatura {
 			}
 	}
 	
-	public void celsiusKelvin(double inicio) {
+	private void celsiusKelvin(double inicio) {
 		resultado = inicio + 273;		
 	}
 	
-	public void celsiusFahrenheit(double inicio) {
+	private void celsiusFahrenheit(double inicio) {
 		resultado = inicio * 1.8 + 32;		
 	}
 	
-	public void celsiusRankine(double inicio) {
+	private void celsiusRankine(double inicio) {
 		resultado = (inicio * 1.8 + 32) + 460;		
 	}
 
-	public void kelvinCelsius(double inicio) {
+	private void kelvinCelsius(double inicio) {
 		resultado = inicio - 273;
 	}
 	
-	public void kelvinFahrenheit(double inicio) {
+	private void kelvinFahrenheit(double inicio) {
 		resultado = ((inicio - 273) * 1.8) + 32;		
 	}
 		
-	public void kelvinRankine(double inicio) {
+	private void kelvinRankine(double inicio) {
 		resultado = (((inicio - 273) * 1.8) + 32) + 460;		
 	}
 	
-	public void fahrenheitCelsius(double inicio) {
+	private void fahrenheitCelsius(double inicio) {
 		resultado =  (inicio - 32) / 1.8;		
 	}
 	
-	public void fahrenheitKelvin(double inicio) {
+	private void fahrenheitKelvin(double inicio) {
 		resultado = ((inicio - 32) / 1.8) + 273;		
 	}
 	
-	public void fahrenheitRankine(double inicio) {
+	private void fahrenheitRankine(double inicio) {
 		resultado =  inicio + 460;		
 	}
 	
-	public void rankineCelsius(double inicio) {
+	private void rankineCelsius(double inicio) {
 		resultado = ((inicio - 460) - 32) / 1.8;		
 	}
 	
-	public void rankineKelvin(double inicio) {
+	private void rankineKelvin(double inicio) {
 		resultado = (((inicio - 460) - 32) / 1.8) + 273;		
 	}
 	
-	public void rankineFahrenheit(double inicio) {
+	private void rankineFahrenheit(double inicio) {
 		resultado = inicio - 460;		
 	}
 	
-	public void actualizar(JTextField t, String conversionFinal) {
+	private void actualizar(JTextField t, String conversionFinal) {
 		t.setText("Equivale a " + this.resultado + " " + conversionFinal); 		
 	}
 	
@@ -121,14 +121,4 @@ public class Temperatura {
 			actualizar(t, conversionFinal);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
