@@ -1,45 +1,12 @@
 package com.alura.conversor;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.awt.SystemColor;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.border.LineBorder;
-
-import com.alura.logicaprincipal.Divisas;
-import com.alura.logicaprincipal.TazaConversion;
-import com.alura.logicaprincipal.Temperatura;
-
-import java.awt.Toolkit;
-import java.awt.Cursor;
-import java.awt.Desktop;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import com.alura.logicaprincipal.*;
 
 public class Principal extends JFrame implements ActionListener, MouseListener {
 
