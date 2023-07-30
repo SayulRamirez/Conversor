@@ -71,7 +71,7 @@ public class Temperatura {
 		t.setText("Equivale a " + this.resultado + " " + conversionFinal); 		
 	}
 	
-	public void resolver(JTextField t,String conversionInicial, String conversionFinal, double inicio) {
+	public void resolverTemperatura(JTextField t,String conversionInicial, String conversionFinal, double inicio) {
 		if(conversionInicial.equals("Celsius") && conversionFinal.equals("Kelvin")) {
 			celsiusKelvin(inicio);
 			actualizar(t, conversionFinal);
