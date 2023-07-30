@@ -230,7 +230,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	  
 	  private void solucionConversion(String opcion) {
 		  if("Temperaturas".equals(opcion)) {
-			  temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
+			  temperatura.resolverTemperatura(textFieldResultado, conversionInicial, conversionFinal, inicio);
 			}  else if ("Divisas".equals(opcion)) {
 				divisas.solucionarDivisas(textFieldResultado, conversionInicial, conversionFinal, inicio);
 			}
