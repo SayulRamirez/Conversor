@@ -8,13 +8,19 @@ import com.alura.logicaprincipal.LogicaMenu;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * EN ESTA CLASE SE IMPLEMENTA EL MÉTODO MAIN PARA EL ARRANQUE DE LA APLICACIÓN EN LA QUE SE MOSTRARA
+ * EL MENU DE LOS TIPOS DE CONVERSION DISPONIBLE PARA REALIZAR.
+ * @author sayul
+ *
+ */
 public class Menu extends JFrame implements ActionListener {
 
 	private JPanel PaneMenu;
 	private JButton botonComenzar;
 	private JComboBox<String> comboBoxSeleccion;
 	private LogicaMenu logica = new LogicaMenu();
-	public static String opcionElegida = "";
+	private static String opcionElegida = "";
 
 	/**
 	 * Launch the application.
@@ -83,9 +89,16 @@ public class Menu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+		/**
+		 * CUANDO SE DA CLIC EN EL BOTON COMENZAR SE GUARDA LA OPCION ELEGIDA EN LA VARIABLE ESTATICA
+		 */
 		if(e.getSource() == botonComenzar) {
 			opcionElegida = comboBoxSeleccion.getSelectedItem().toString().trim();
-			
+
+			/**
+			 * SI NO SELECCIONO NINGUNA OPCIÓN MANDARA UN MENSAJE DE ERROR Y SI SELECCIONO UNA OPCION SE CARGARA
+			 * LA PAGINA PRINCIPAL
+			 */
 			if(opcionElegida.equals("")) {
 				JOptionPane.showMessageDialog(null, "Debes seleccionar una opcion");
 			} else {
@@ -100,7 +113,12 @@ public class Menu extends JFrame implements ActionListener {
 		
 	}
 	
+	/**
+	 * MÉTODO PARA QUE OTRAS CLASES HAGAN USO DEL VALOR DE LA VARIABLE OPCIONELEGIDA
+	 * @return
+	 * RETORNA UN STRING QUE CONTIENE LA OPCION ELEGIDA POR EL USUARIO
+	 */
 	public String getOpcionElegida() {
-		return opcionElegida;
+		return this.opcionElegida;
 	}
 }

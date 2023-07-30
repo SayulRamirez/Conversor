@@ -8,6 +8,12 @@ import java.io.*;
 import java.net.*;
 import com.alura.logicaprincipal.*;
 
+/**
+ * VENTANA PRINCIPAL EN LA QUE SE HARÁ LA CONVERSIÓN DEPENDIENDO DE LA OPCIÓN
+ * ELEGIDA POR EL USUARIO.
+ * @author sayul
+ *
+ */
 public class Principal extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
@@ -19,7 +25,6 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	private Divisas divisas = new Divisas();
 	private Menu menu = new Menu();
 	private JLabel labelGitHub, labelLinkedIn, labelNombre, labelContacto;
-	
 	private String valorInicial, conversionInicial, conversionFinal, opcion;
 	private double resultado, inicio;
 	
@@ -34,7 +39,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		setTitle("Conversor");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/com/alura/imagenes/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		opcion = menu.opcionElegida;
+		opcion = menu.getOpcionElegida(); //GUARDAMOS EL VALOR DE LA VARIABLE ESTATICA DEL MENU PARA CON ELLA SABER QUE DATOS CARGAR
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -42,7 +47,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		setJMenuBar(menuBar);
 		
 		JMenu menuOpciones = new JMenu("Opciones");
-		menuBar.add(menuOpciones);
+		menuBar.add(menuOpciones); // SE AGREGAN LAS OPCIONES DE CONVERSIÓN DISPONIBLES
 		
 		menuCambiar = new JMenuItem("Cambiar tipo de conversión");
 		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/conversion.png")));
@@ -94,7 +99,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 		
-		cargarCombo(comboBoxFinal);
+		cargarCombo(comboBoxFinal); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
 		
 		JLabel labelA = new JLabel("a:");
 		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -107,7 +112,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 		
-		cargarCombo(comboBoxInicio);
+		cargarCombo(comboBoxInicio); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -143,6 +148,10 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
 		
+		/**
+		 * EN ESTOS LABELS SE AGREGA EL ENLACE PARA LAS PÁGINAS DE CONTACTO
+		 * LOS CUALES TE DIRECCIONAN A CADA PÁGINA
+		 */
 		labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
 		labelGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		labelGitHub.addMouseListener(this);
@@ -158,6 +167,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		// SI SE SELECCIONA EL MENU CAMBIAR SE CIERRA LA VENTANA Y SE HABRE LA DEL MENU PARA ELEGIR OTRA
 		if(e.getSource() == menuCambiar) {
 			Menu menu = new Menu();			
 			menu.setVisible(true);
@@ -167,10 +177,12 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 			this.setVisible(false);
 		}
 		
+		// CIERRA EL PROGRAMA PRESIONANDO EL MENU SALIR
 		if(e.getSource() == menuSalir) {
 			System.exit(WIDTH);
 		}
 		
+		// RESTABLECE LOS TFIELDS Y LOS COMOBOBOX
 		if(e.getSource() == menuLimpiar) {
 			textFieldCantidad.setText("");
 			textFieldResultado.setText("");
@@ -178,6 +190,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 			comboBoxFinal.setSelectedIndex(0);
 		}
 		
+		// LANZA UN JOPTIONPANE CON LOS DATOS DE CONTACTO 
 		if(e.getSource() == menuAcerca) {
 			JLabel[] labelLinks = {
 					labelNombre,
@@ -190,6 +203,11 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		}
 		
 		
+		/**
+		 * HACE LA CONVERSION DE LAS UNIDADES, PRIMERO RECUPERANDO LOS VALORES DE TEXTFIELD Y DE LOS COMBOBOX,
+		 * POSTERIOR CORROBORA QUE SE HAYAN INGRESADO LOS DATOS CORRECTAMENTE SI HAY ALGUNO ERRONEO LANZA UN MENSAJE DE ERROR
+		 * Y SI NO PROCEDE A LA CONVERSIÓN
+		 */
 		if (e.getSource() == botonAplicar) {
 			
 			valorInicial = textFieldCantidad.getText();
@@ -211,6 +229,14 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	}
 	
 
+	/**
+	 * EL MÉTODO INTENTA CONVERTIR EL STRING INGRESADO A DOUBLE SI NO ES UN DOUBLE REGRESA TRUE INDICANDO QUE ES UN STRING 
+	 * Y SI LOGRA CONVERTIRLO A UN DATO TIPO DOUBLE REGRESA FALSE INDICANDO QUE NO ES STRING
+	 * @param str
+	 * ES EL ARGUMENTO QUE SE QUIERE SABER SI ES STRING O DOUBLE
+	 * @return
+	 * RETORNA UN BOOLEAN: TRUE SI ES STRING Y FALSE SI ES DOUBLE
+	 */
 	public static boolean isString(String str){
 		try{
 			double d = Double.parseDouble(str);
@@ -220,14 +246,25 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		return false;
 	}
 	  
+	/**
+	 * CARGA LOS DATOS DE LA CONVERSION DEPENDIENDO DE LA OPCION ELEGIDA POR EL USUARIO
+	 * @param combo
+	 * SE INGRESA EL COMBOBOX DONDE SERÁN CARGADOS LOS DATOS
+	 */
 	private void cargarCombo(JComboBox<String> combo) {
-		if(opcion.equals("Temperaturas")) {
+		if("Temperaturas".equals(opcion)) {
 			temperatura.anadirDatos(combo);			
-		}  else if ("Divisas".equals(opcion)) {
+		}  else if ("Divisas".equals(menu.getOpcionElegida())) {
 			divisas.getDivisas(combo);
 		}
 	}
-	  
+	
+	/**
+	 * EL MÉTODO MANDA A LLAMAR A LOS MÉTODOS DE RESOLUCION DE LA CONVERSION DEPENDIENDO LA OPCION QUE ELIGIO 
+	 * EL USUARIO
+	 * @param opcion
+	 * SE INGRESA LA OPCION ELEGIDA POR EL USUARIO
+	 */
 	private void solucionConversion(String opcion) {
 		if("Temperaturas".equals(opcion)) {
 			temperatura.resolverTemperatura(textFieldResultado, conversionInicial, conversionFinal, inicio);
@@ -236,19 +273,23 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		}
 	}
 
+	/**
+	 * MÉTODO PARA CARGAR LAS URL DE LOS ENLACES DE CONTACTO
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getClickCount() > 0) {
+		if (e.getClickCount() > 0) { // AL DAR CLICK SE HABER LA PAGINA QUE CONTINE, SI SE DAN TRES CLICK HABRE LA PÁGINA TRES VECES
             try {
             	if(e.getSource() == labelGitHub) {
-            		Desktop.getDesktop().browse(new URI("https://github.com/SayulRamirez"));            		
+            		// HABRE EL NAVEGADOR DEL SISTEMA CON LA URL ASIGNADA
+            		Desktop.getDesktop().browse(new URI("https://github.com/SayulRamirez"));
             	}
             	
             	if(e.getSource() == labelLinkedIn) {
             		Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/sayul-ramirez"));            		
             	}
             	
-            } catch (IOException | URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) { 
                 ex.printStackTrace();
             }
         }	
