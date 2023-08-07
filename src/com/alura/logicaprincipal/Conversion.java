@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
  *
  */
 
-public class LogicaMenu {
+public class Conversion {
 
 	private String[] opciones = {"", "Divisas", "Temperaturas"};
 	

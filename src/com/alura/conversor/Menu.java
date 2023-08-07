@@ -3,7 +3,7 @@ package com.alura.conversor;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import com.alura.logicaprincipal.LogicaMenu;
+import com.alura.logicaprincipal.Conversion;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -19,7 +19,7 @@ public class Menu extends JFrame implements ActionListener {
 	private JPanel PaneMenu;
 	private JButton botonComenzar;
 	private JComboBox<String> comboBoxSeleccion;
-	private LogicaMenu logica = new LogicaMenu();
+	private Conversion conversion = new Conversion();
 	private static String opcionElegida = "";
 
 	/**
@@ -71,7 +71,7 @@ public class Menu extends JFrame implements ActionListener {
 		comboBoxSeleccion.setBounds(10, 158, 271, 27);
 		PaneMenu.add(comboBoxSeleccion);
 		
-		logica.anadirDatos(comboBoxSeleccion);
+		conversion.anadirDatos(comboBoxSeleccion);
 		
 		botonComenzar = new JButton("Comenzar conversion");
 		botonComenzar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
