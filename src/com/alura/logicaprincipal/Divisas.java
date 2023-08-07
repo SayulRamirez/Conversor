@@ -10,7 +10,7 @@ import javax.swing.JTextField;
  *
  */
 
-public class Divisas extends Conversion {
+public class Divisas extends Conversion implements ResolverConversion{
 	
 	private double resultado;
 	
@@ -41,18 +41,7 @@ public class Divisas extends Conversion {
 			DOLAR_WONG
 	};
 	
-	/**
-	 * MÉTODO PARA CARGAR LOS ITEMS EN EL COMBOBOX
-	 * 
-	 * @param combo
-	 * COMBOBOX DÓNDE SERÁN CARGADOS LOS ITEMS
-	 */
-//	public void getDivisas(JComboBox<String> combo) {
-//		for(String i: divisas) {
-//			combo.addItem(i);
-//		}
-//	}
-	
+
 	/**
 	 * EL MÉTODO RESULEVE LA CONVERSIÓN DESEADA POR EL USUARIO
 	 * 
@@ -66,19 +55,25 @@ public class Divisas extends Conversion {
 	 * @param inicio
 	 * VALOR DE LA DIVISA DE ENTRADA
 	 */
-	public void solucionarDivisas(JTextField t, String conversionInicial, String conversionFinal, double inicio) {
-		
+
+	@Override
+	public void resolver(JTextField t, String conversionInicial, String conversionFinal, double inicio) {
+
 		for(int i = 1; i < divisas.length; i++) {
 			for(int j = 1; j < divisas.length; j++) {
 				
 				if(divisas[i].equals(conversionInicial) && divisas[j].equals(conversionFinal)) {
 					
-				resultado = Math.round((inicio / Double.parseDouble(taza[i])) * Double.parseDouble(taza[j])*100.0) / 100.0;
-				
+					resultado = Math.round((inicio / Double.parseDouble(taza[i])) * Double.parseDouble(taza[j])*100.0) / 100.0;
+					
 				}
 			}
 		}
 		
-		t.setText("Equivale a " + this.resultado + " " + conversionFinal); 
+		t.setText("Equivale a " + this.resultado + " " + conversionFinal); 		
+	}
+	
+	public String[] getDivisas() {
+		return this.divisas;
 	}
 }

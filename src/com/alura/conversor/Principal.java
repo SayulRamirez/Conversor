@@ -255,7 +255,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		if("Temperaturas".equals(opcion)) {
 			temperatura.anadirDatos(combo);			
 		}  else if ("Divisas".equals(menu.getOpcionElegida())) {
-			divisas.anadirDatos(combo, divisas.getArray());
+			divisas.anadirDatos(combo, divisas.getDivisas());
 		}
 	}
 	
@@ -269,7 +269,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		if("Temperaturas".equals(opcion)) {
 			temperatura.resolverTemperatura(textFieldResultado, conversionInicial, conversionFinal, inicio);
 		}  else if ("Divisas".equals(opcion)) {
-			divisas.solucionarDivisas(textFieldResultado, conversionInicial, conversionFinal, inicio);
+			divisas.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
 		}
 	}
 
