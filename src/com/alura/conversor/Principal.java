@@ -255,7 +255,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		if("Temperaturas".equals(opcion)) {
 			temperatura.anadirDatos(combo);			
 		}  else if ("Divisas".equals(menu.getOpcionElegida())) {
-			divisas.getDivisas(combo);
+			divisas.anadirDatos(combo, divisas.getArray());
 		}
 	}
 	

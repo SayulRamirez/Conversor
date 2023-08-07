@@ -10,7 +10,7 @@ import javax.swing.JTextField;
  *
  */
 
-public class Divisas {
+public class Divisas extends Conversion {
 	
 	private double resultado;
 	
@@ -47,11 +47,11 @@ public class Divisas {
 	 * @param combo
 	 * COMBOBOX DÓNDE SERÁN CARGADOS LOS ITEMS
 	 */
-	public void getDivisas(JComboBox<String> combo) {
-		for(String i: divisas) {
-			combo.addItem(i);
-		}
-	}
+//	public void getDivisas(JComboBox<String> combo) {
+//		for(String i: divisas) {
+//			combo.addItem(i);
+//		}
+//	}
 	
 	/**
 	 * EL MÉTODO RESULEVE LA CONVERSIÓN DESEADA POR EL USUARIO

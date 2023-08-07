@@ -20,9 +20,13 @@ public class Conversion {
 	 * @param combo 
 	 * COMBOOX DÓNDE SERÁN AGREGADOS LOS ITEMS DEL MISMO
 	 */
-	public void anadirDatos(JComboBox<String> combo) {
-		for(String i: opciones) {
+	public void anadirDatos(JComboBox<String> combo, String[] array) {
+		for(String i: array) {
 			combo.addItem(i);
 		}
-	  }
+	}
+	
+	public String[] getArray() {
+		return this.opciones;
+	}
 }
