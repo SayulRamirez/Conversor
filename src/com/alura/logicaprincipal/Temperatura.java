@@ -8,7 +8,7 @@ import javax.swing.*;
  *
  */
 
-public class Temperatura {
+public class Temperatura extends Conversion implements ResolverConversion {
 
 	private double resultado;
 	private String[] temperaturas = {
@@ -24,11 +24,6 @@ public class Temperatura {
 	 * @param combo
 	 * COMBOBOX DÓNDE SERÁN CARGADOS LOS ITEMS
 	 */
-	public void anadirDatos(JComboBox<String> combo) {
-		for(int i = 0; i < temperaturas.length; i++) {
-			combo.addItem(temperaturas[i]);			
-			}
-	}
 	
 	private void celsiusKelvin(double inicio) {
 		resultado = inicio + 273;		
@@ -94,7 +89,9 @@ public class Temperatura {
 	 * @param inicio
 	 * VALOR DE LA CONVERSIÓN DE INICIO
 	 */
-	public void resolverTemperatura(JTextField t,String conversionInicial, String conversionFinal, double inicio) {
+
+	@Override
+	public void resolver(JTextField t, String conversionInicial, String conversionFinal, double inicio) {
 		if(conversionInicial.equals("Celsius") && conversionFinal.equals("Kelvin")) {
 			celsiusKelvin(inicio);
 			actualizar(t, conversionFinal);
@@ -143,5 +140,9 @@ public class Temperatura {
 			rankineFahrenheit(inicio);
 			actualizar(t, conversionFinal);
 		}
+	}
+	
+	public String[] getTemperaturas() {
+		return this.temperaturas;
 	}
 }

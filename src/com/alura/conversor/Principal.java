@@ -253,7 +253,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	 */
 	private void cargarCombo(JComboBox<String> combo) {
 		if("Temperaturas".equals(opcion)) {
-			temperatura.anadirDatos(combo);			
+			temperatura.anadirDatos(combo, temperatura.getTemperaturas());			
 		}  else if ("Divisas".equals(menu.getOpcionElegida())) {
 			divisas.anadirDatos(combo, divisas.getDivisas());
 		}
@@ -267,7 +267,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	 */
 	private void solucionConversion(String opcion) {
 		if("Temperaturas".equals(opcion)) {
-			temperatura.resolverTemperatura(textFieldResultado, conversionInicial, conversionFinal, inicio);
+			temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
 		}  else if ("Divisas".equals(opcion)) {
 			divisas.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
 		}
