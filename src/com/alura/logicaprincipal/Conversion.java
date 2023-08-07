@@ -1,6 +1,7 @@
 package com.alura.logicaprincipal;
 
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 /**
  * EN ESTA CLASE SOLO SE AÑADEN LOS DIFERENTES TIPOS DE CONVERSIONES
