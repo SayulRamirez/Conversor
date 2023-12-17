@@ -14,9 +14,7 @@ import com.alura.logicaprincipal.*;
  * @author sayul
  *
  */
-public class Principal extends JFrame implements ActionListener, MouseListener {
-
-	private JPanel contentPane;
+public class Principal extends JFrame implements MouseListener {
 	private JTextField textFieldCantidad, textFieldResultado;
 	private JComboBox<String> comboBoxInicio, comboBoxFinal;
 	private JButton botonAplicar;
@@ -26,20 +24,26 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	private Menu menu = new Menu();
 	private JLabel labelGitHub, labelLinkedIn, labelNombre, labelContacto;
 	private String valorInicial, conversionInicial, conversionFinal, opcion;
-	private double resultado, inicio;
-	
+	private double inicio;
+
 	/**
 	 * Create the frame.
 	 */
-	public Principal() {
+	public Principal(String opcion) {
 		setBounds(0, 0, 516, 410);
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Conversor");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/com/alura/imagenes/iconoDos.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		opcion = menu.getOpcionElegida(); //GUARDAMOS EL VALOR DE LA VARIABLE ESTATICA DEL MENU PARA CON ELLA SABER QUE DATOS CARGAR
+
+		String opcionEleginda = opcion;
+
+		JPanel contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -49,43 +53,93 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		JMenu menuOpciones = new JMenu("Opciones");
 		menuBar.add(menuOpciones); // SE AGREGAN LAS OPCIONES DE CONVERSIÓN DISPONIBLES
 		
-		menuCambiar = new JMenuItem("Cambiar tipo de conversión");
-		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/conversion.png")));
+		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
+		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/images/conversion.png")));
 		menuOpciones.add(menuCambiar);
-		menuCambiar.addActionListener(this);
+		menuCambiar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Menu menu = new Menu();
+				menu.setVisible(true);
+				dispose();
+			}
+		});
+		//menuCambiar.addActionListener(this);
 		
-		menuSalir = new JMenuItem("Salir");
-		menuSalir.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/salir.png")));
+		JMenuItem menuSalir = new JMenuItem("Salir");
+		menuSalir.setIcon(new ImageIcon(Principal.class.getResource("/images/salir.png")));
 		menuOpciones.add(menuSalir);
-		menuSalir.addActionListener(this);
+		menuSalir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		//menuSalir.addActionListener(this);
 		
-		menuLimpiar = new JMenuItem("Limpiar");
-		menuLimpiar.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/limpiar.png")));
+		JMenuItem menuLimpiar = new JMenuItem("Limpiar");
+		menuLimpiar.setIcon(new ImageIcon(Principal.class.getResource("/images/limpiar.png")));
 		menuBar.add(menuLimpiar);
-		menuLimpiar.addActionListener(this);
+		menuLimpiar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				textFieldCantidad.setText("");
+				textFieldResultado.setText("");
+				comboBoxInicio.setSelectedIndex(0);
+				comboBoxFinal.setSelectedIndex(0);
+			}
+		});
+		//menuLimpiar.addActionListener(this);
 		
-		menuAcerca = new JMenuItem("Acerca de");
-		menuAcerca.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/acerca.png")));
+		JMenuItem menuAcerca = new JMenuItem("Acerca de");
+		menuAcerca.setIcon(new ImageIcon(Principal.class.getResource("/images/acerca.png")));
 		menuBar.add(menuAcerca);
-		menuAcerca.addActionListener(this);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		menuAcerca.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JLabel[] labelLinks = {
+						labelNombre,
+						labelContacto,
+						labelGitHub,
+						labelLinkedIn
+				};
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+				JOptionPane.showMessageDialog(null, labelLinks);
+			}
+		});
+		//menuAcerca.addActionListener(this);
 		
 		JLabel labelEquivalencia = new JLabel("Equivalencia:");
 		labelEquivalencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelEquivalencia.setBounds(21, 246, 97, 21);
-		contentPane.add(labelEquivalencia);
+		//contentPane.add(labelEquivalencia);
 		
-	    botonAplicar = new JButton("Aplicar conversión");
+	    JButton botonAplicar = new JButton("Aplicar conversión");
 		botonAplicar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botonAplicar.setBackground(new Color(255, 255, 255));
 		botonAplicar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		botonAplicar.setBounds(115, 307, 270, 27);
 		contentPane.add(botonAplicar);
-		botonAplicar.addActionListener(this);
+		botonAplicar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				valorInicial = textFieldCantidad.getText();
+				conversionInicial = comboBoxInicio.getSelectedItem().toString();
+				conversionFinal = comboBoxFinal.getSelectedItem().toString();
+
+				if (Principal.isString(valorInicial) || conversionInicial.equals("") || conversionFinal.equals("") || conversionInicial.equals(conversionFinal)) {
+
+					JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
+							+ "las dos opciones y las opciones deben ser diferentes");
+
+				} else {
+
+					inicio = Double.parseDouble(valorInicial);
+					solucionConversion(opcion);
+				}
+			}
+		});
+		//botonAplicar.addActionListener(this);
 		
 		textFieldResultado = new JTextField();
 		textFieldResultado.setEditable(false);
@@ -99,7 +153,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 		
-		cargarCombo(comboBoxFinal); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
+		cargarCombo(comboBoxFinal, opcionEleginda); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
 		
 		JLabel labelA = new JLabel("a:");
 		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -112,7 +166,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 		
-		cargarCombo(comboBoxInicio); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
+		cargarCombo(comboBoxInicio, opcionEleginda); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
 		
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -144,7 +198,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		labelBanner.setForeground(new Color(0, 0, 0));
 		labelBanner.setBackground(new Color(0, 0, 0));
 		labelBanner.setBorder(null);
-		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/com/alura/imagenes/fondoTres.png")));
+		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/images/fondoTres.png")));
 		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
 		
@@ -152,18 +206,19 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		 * EN ESTOS LABELS SE AGREGA EL ENLACE PARA LAS PÁGINAS DE CONTACTO
 		 * LOS CUALES TE DIRECCIONAN A CADA PÁGINA
 		 */
-		labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
+		JLabel labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
 		labelGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		labelGitHub.addMouseListener(this);
+		//labelGitHub.addMouseListener(this);
 		
-		labelLinkedIn = new JLabel("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>");
+		JLabel labelLinkedIn = new JLabel("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>");
 		labelLinkedIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		labelLinkedIn.addMouseListener(this);		
+		//labelLinkedIn.addMouseListener(this);
 		
-		labelNombre = new JLabel("Desarrollador: Saúl Ramírez");
+		JLabel labelNombre = new JLabel("Desarrollador: Saúl Ramírez");
 		labelContacto = new JLabel("Enlaces de contacto: ");
 	}
 
+	/*
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -203,11 +258,11 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		}
 		
 		
-		/**
+		**
 		 * HACE LA CONVERSION DE LAS UNIDADES, PRIMERO RECUPERANDO LOS VALORES DE TEXTFIELD Y DE LOS COMBOBOX,
 		 * POSTERIOR CORROBORA QUE SE HAYAN INGRESADO LOS DATOS CORRECTAMENTE SI HAY ALGUNO ERRONEO LANZA UN MENSAJE DE ERROR
 		 * Y SI NO PROCEDE A LA CONVERSIÓN
-		 */
+
 		if (e.getSource() == botonAplicar) {
 			
 			valorInicial = textFieldCantidad.getText();
@@ -225,8 +280,9 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 				solucionConversion(opcion);
 			}
 		}
-		
-	}
+		/
+	}*/
+
 	
 
 	/**
@@ -251,10 +307,10 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	 * @param combo
 	 * SE INGRESA EL COMBOBOX DONDE SERÁN CARGADOS LOS DATOS
 	 */
-	private void cargarCombo(JComboBox<String> combo) {
-		if("Temperaturas".equals(opcion)) {
+	private void cargarCombo(JComboBox<String> combo, String opcion) {
+		if("temperaturas".equals(opcion)) {
 			temperatura.anadirDatos(combo, temperatura.getTemperaturas());			
-		}  else if ("Divisas".equals(menu.getOpcionElegida())) {
+		}  else if ("divisas".equals(opcion)) {
 			divisas.anadirDatos(combo, divisas.getDivisas());
 		}
 	}
@@ -297,26 +353,22 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 }
 
