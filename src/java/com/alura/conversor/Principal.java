@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.Objects;
+
 import com.alura.logicaprincipal.*;
 
 /**
@@ -25,6 +27,7 @@ public class Principal extends JFrame implements MouseListener {
 	private JLabel labelGitHub, labelLinkedIn, labelNombre, labelContacto;
 	private String valorInicial, conversionInicial, conversionFinal, opcion;
 	private double inicio;
+	private String opcionEleginda;
 
 	/**
 	 * Create the frame.
@@ -38,7 +41,7 @@ public class Principal extends JFrame implements MouseListener {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		String opcionEleginda = opcion;
+		this.opcionEleginda = opcion;
 
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,7 +57,7 @@ public class Principal extends JFrame implements MouseListener {
 		menuBar.add(menuOpciones); // SE AGREGAN LAS OPCIONES DE CONVERSIÓN DISPONIBLES
 		
 		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
-		menuCambiar.setIcon(new ImageIcon(Principal.class.getResource("/images/conversion.png")));
+		menuCambiar.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/conversion.png"))));
 		menuOpciones.add(menuCambiar);
 		menuCambiar.addActionListener(new ActionListener() {
 			@Override
@@ -64,10 +67,9 @@ public class Principal extends JFrame implements MouseListener {
 				dispose();
 			}
 		});
-		//menuCambiar.addActionListener(this);
-		
+
 		JMenuItem menuSalir = new JMenuItem("Salir");
-		menuSalir.setIcon(new ImageIcon(Principal.class.getResource("/images/salir.png")));
+		menuSalir.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/salir.png"))));
 		menuOpciones.add(menuSalir);
 		menuSalir.addActionListener(new ActionListener() {
 			@Override
@@ -75,10 +77,9 @@ public class Principal extends JFrame implements MouseListener {
 				System.exit(0);
 			}
 		});
-		//menuSalir.addActionListener(this);
-		
+
 		JMenuItem menuLimpiar = new JMenuItem("Limpiar");
-		menuLimpiar.setIcon(new ImageIcon(Principal.class.getResource("/images/limpiar.png")));
+		menuLimpiar.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/limpiar.png"))));
 		menuBar.add(menuLimpiar);
 		menuLimpiar.addActionListener(new ActionListener() {
 			@Override
@@ -89,10 +90,9 @@ public class Principal extends JFrame implements MouseListener {
 				comboBoxFinal.setSelectedIndex(0);
 			}
 		});
-		//menuLimpiar.addActionListener(this);
-		
+
 		JMenuItem menuAcerca = new JMenuItem("Acerca de");
-		menuAcerca.setIcon(new ImageIcon(Principal.class.getResource("/images/acerca.png")));
+		menuAcerca.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/acerca.png"))));
 		menuBar.add(menuAcerca);
 		menuAcerca.addActionListener(new ActionListener() {
 			@Override
@@ -107,8 +107,7 @@ public class Principal extends JFrame implements MouseListener {
 				JOptionPane.showMessageDialog(null, labelLinks);
 			}
 		});
-		//menuAcerca.addActionListener(this);
-		
+
 		JLabel labelEquivalencia = new JLabel("Equivalencia:");
 		labelEquivalencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelEquivalencia.setBounds(21, 246, 97, 21);
@@ -124,10 +123,10 @@ public class Principal extends JFrame implements MouseListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				valorInicial = textFieldCantidad.getText();
-				conversionInicial = comboBoxInicio.getSelectedItem().toString();
-				conversionFinal = comboBoxFinal.getSelectedItem().toString();
+				conversionInicial = Objects.requireNonNull(comboBoxInicio.getSelectedItem()).toString();
+				conversionFinal = Objects.requireNonNull(comboBoxFinal.getSelectedItem()).toString();
 
-				if (Principal.isString(valorInicial) || conversionInicial.equals("") || conversionFinal.equals("") || conversionInicial.equals(conversionFinal)) {
+				if (Principal.isString(valorInicial) || conversionInicial.equals(conversionFinal)) {
 
 					JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
 							+ "las dos opciones y las opciones deben ser diferentes");
@@ -322,9 +321,9 @@ public class Principal extends JFrame implements MouseListener {
 	 * SE INGRESA LA OPCION ELEGIDA POR EL USUARIO
 	 */
 	private void solucionConversion(String opcion) {
-		if("Temperaturas".equals(opcion)) {
+		if("temperaturas".equals(opcion)) {
 			temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
-		}  else if ("Divisas".equals(opcion)) {
+		}  else if ("divisas".equals(opcion)) {
 			divisas.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
 		}
 	}
