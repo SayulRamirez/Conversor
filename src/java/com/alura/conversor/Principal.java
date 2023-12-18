@@ -11,6 +11,7 @@ import java.util.Objects;
 import com.alura.controller.ConversionController;
 import com.alura.enums.Pais;
 import com.alura.logicaprincipal.*;
+import com.alura.validaciones.ValidarString;
 
 /**
  * VENTANA PRINCIPAL EN LA QUE SE HARÁ LA CONVERSIÓN DEPENDIENDO DE LA OPCIÓN
@@ -19,14 +20,12 @@ import com.alura.logicaprincipal.*;
  *
  */
 public class Principal extends JFrame {
-	private Temperatura temperatura = new Temperatura();
-	private Divisas divisas = new Divisas();
-	private String opcionEleginda;
+	private boolean conexion;
 
 	/**
 	 * Create the frame.
 	 */
-	public Principal(String opcion) {
+	public Principal(String opcion, boolean c) {
 		setBounds(0, 0, 516, 410);
 		setLayout(null);
 		setLocationRelativeTo(null);
@@ -35,7 +34,11 @@ public class Principal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.opcionEleginda = opcion;
+		this.conexion = c;
+
+		if (!conexion) {
+			JOptionPane.showMessageDialog(null, "Conversión sin conexión a internet.");
+		}
 
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,8 +51,11 @@ public class Principal extends JFrame {
 		comboBoxFinal.setBounds(270, 190, 220, 27);
 		contentPane.add(comboBoxFinal);
 
-		//cargarCombo(comboBoxFinal, opcionEleginda); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
-		cargarCombo(comboBoxFinal);
+		if("temperaturas".equals(opcion)) {
+			cargarComboT(comboBoxFinal);
+		} else if ("divisas".equals(opcion)) {
+			cargarCombo(comboBoxFinal, this.conexion);
+		}
 
 		JLabel labelA = new JLabel("a:");
 		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -62,8 +68,11 @@ public class Principal extends JFrame {
 		comboBoxInicio.setBounds(10, 190, 220, 27);
 		contentPane.add(comboBoxInicio);
 
-		//cargarCombo(comboBoxInicio, opcionEleginda); // Se cargan los datos dependiendo el tipo de conversión.
-		cargarCombo(comboBoxInicio);
+		if("temperaturas".equals(opcion)) {
+			cargarComboT(comboBoxInicio);
+		} else if ("divisas".equals(opcion)) {
+			cargarCombo(comboBoxInicio, this.conexion);
+		}
 
 		// JTextField donde se muestra el resultado.
 		JTextField textFieldResultado = new JTextField();
@@ -93,37 +102,26 @@ public class Principal extends JFrame {
 		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
 		menuCambiar.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/conversion.png"))));
 		menuOpciones.add(menuCambiar);
-		menuCambiar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Menu menu = new Menu();
-				menu.setVisible(true);
-				dispose();
-			}
+		menuCambiar.addActionListener(e-> {
+            Menu menu = new Menu();
+            menu.setVisible(true);
+            dispose();
 		});
 
 		JMenuItem menuSalir = new JMenuItem("Salir");
 		menuSalir.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/salir.png"))));
 		menuOpciones.add(menuSalir);
-		menuSalir.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		menuSalir.addActionListener(e -> System.exit(0));
 
 		JMenuItem menuLimpiar = new JMenuItem("Limpiar");
 		menuLimpiar.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/limpiar.png"))));
 		menuBar.add(menuLimpiar);
-		menuLimpiar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				textFieldCantidad.setText("");
-				textFieldResultado.setText("");
-				comboBoxInicio.setSelectedIndex(0);
-				comboBoxFinal.setSelectedIndex(0);
-			}
-		});
+		menuLimpiar.addActionListener(e -> {
+            textFieldCantidad.setText("");
+            textFieldResultado.setText("");
+            comboBoxInicio.setSelectedIndex(0);
+            comboBoxFinal.setSelectedIndex(0);
+        });
 
 		// Dentro de este menú se encuentran los datos de contacto.
 		JMenuItem menuAcerca = new JMenuItem("Acerca de");
@@ -133,7 +131,7 @@ public class Principal extends JFrame {
 		JLabel labelNombre = new JLabel("Desarrollador: Saúl Ramírez");
 		JLabel labelContacto = new JLabel("Enlaces de contacto: ");
 
-		// En estos JLabel se agrega el enlace para las páginas de contacto, los cuales te direccionan a la página.
+
 		JLabel labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
 		labelGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		labelGitHub.addMouseListener(new MouseAdapter() {
@@ -147,6 +145,7 @@ public class Principal extends JFrame {
 			}
 		});
 
+		// En estos JLabel se agrega el enlace para las páginas de contacto, los cuales te direccionan a la página.
 		JLabel labelLinkedIn = new JLabel("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>");
 		labelLinkedIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		labelLinkedIn.addMouseListener(new MouseAdapter() {
@@ -160,18 +159,15 @@ public class Principal extends JFrame {
 			}
 		});
 
-		menuAcerca.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JLabel[] labelLinks = {
-						labelNombre,
-						labelContacto,
-						labelGitHub,
-						labelLinkedIn
-				};
-				JOptionPane.showMessageDialog(null, labelLinks);
-			}
-		});
+		menuAcerca.addActionListener(e -> {
+            JLabel[] labelLinks = {
+                    labelNombre,
+                    labelContacto,
+                    labelGitHub,
+                    labelLinkedIn
+            };
+            JOptionPane.showMessageDialog(null, labelLinks);
+        });
 
 		JLabel labelEquivalencia = new JLabel("Equivalencia:");
 		labelEquivalencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -183,38 +179,40 @@ public class Principal extends JFrame {
 		botonAplicar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		botonAplicar.setBounds(115, 307, 270, 27);
 		contentPane.add(botonAplicar);
-		botonAplicar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String valorInicial = textFieldCantidad.getText();
-				String conversionInicial = Objects.requireNonNull(comboBoxInicio.getSelectedItem()).toString();
-				String conversionFinal = Objects.requireNonNull(comboBoxFinal.getSelectedItem()).toString();
 
-				String origen = Pais.getByNombrePais(conversionInicial).toString();
-				String destino = Pais.getByNombrePais(conversionFinal).toString();
+		botonAplicar.addActionListener(e -> {
+            String valorInicial = textFieldCantidad.getText();
+            String conversionInicial = Objects.requireNonNull(comboBoxInicio.getSelectedItem()).toString();
+            String conversionFinal = Objects.requireNonNull(comboBoxFinal.getSelectedItem()).toString();
 
-				if (Principal.isString(valorInicial) || conversionInicial.equals(conversionFinal)) {
-					JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
-							+ "las dos opciones y las opciones deben ser diferentes");
+            if (ValidarString.isString(valorInicial) || conversionInicial.equals(conversionFinal)) {
+                JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
+                        + "las dos opciones y las opciones deben ser diferentes");
 
-					throw new RuntimeException();
-				}
+                throw new RuntimeException();
+            }
 
-				double valor = Double.parseDouble(valorInicial);
+            double valor = Double.parseDouble(valorInicial);
 
-				if("temperaturas".equals(opcion)) {
-					temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
-				/*}  else if ("divisas".equals(opcion)) {
-					divisas.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
-					*/
+            if("temperaturas".equals(opcion)) {
+				Temperatura temperatura = new Temperatura();
+                temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
 
-				} else if ("divisas".equals(opcion)) {
+            } else if ("divisas".equals(opcion)) {
+
+				if (conexion) {
+					String origen = Pais.getByNombrePais(conversionInicial).toString();
+					String destino = Pais.getByNombrePais(conversionFinal).toString();
+
 					ConversionController cc = new ConversionController();
 					double resultado = cc.aplicarConversion(valor, origen, destino);
 					textFieldResultado.setText(String.valueOf(resultado));
+				} else {
+					Divisas d = new Divisas();
+                	d.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
 				}
-			}
-		});
+            }
+        });
 
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -244,54 +242,35 @@ public class Principal extends JFrame {
 		contentPane.add(labelBanner);
 	}
 
+
 	/**
-	 * EL MÉTODO INTENTA CONVERTIR EL STRING INGRESADO A DOUBLE SI NO ES UN DOUBLE REGRESA TRUE INDICANDO QUE ES UN STRING 
-	 * Y SI LOGRA CONVERTIRLO A UN DATO TIPO DOUBLE REGRESA FALSE INDICANDO QUE NO ES STRING
-	 * @param str
-	 * ES EL ARGUMENTO QUE SE QUIERE SABER SI ES STRING O DOUBLE
-	 * @return
-	 * RETORNA UN BOOLEAN: TRUE SI ES STRING Y FALSE SI ES DOUBLE
+	 * Carga los datos de las divisas dependiendo si el equipo tiene conexión a internet o no.
+	 * @param c {@link JComboBox<String>} en el que se cargaran los datos.
+	 * @param conexion {@link Boolean} true si sí tiene conexión, false si no.
 	 */
-	public static boolean isString(String str){
-		try{
-			double d = Double.parseDouble(str);
-		} catch(NumberFormatException nfe){
-			return true;
-		}
-		return false;
-	}
-	  
-	/**
-	 * CARGA LOS DATOS DE LA CONVERSION DEPENDIENDO DE LA OPCION ELEGIDA POR EL USUARIO
-	 * @param combo
-	 * SE INGRESA EL COMBOBOX DONDE SERÁN CARGADOS LOS DATOS
-	 */
-	private void cargarCombo(JComboBox<String> combo, String opcion) {
-		if("temperaturas".equals(opcion)) {
-			temperatura.anadirDatos(combo, temperatura.getTemperaturas());			
-		}  else if ("divisas".equals(opcion)) {
-			divisas.anadirDatos(combo, divisas.getDivisas());
+	private void cargarCombo(JComboBox<String> c, boolean conexion) {
+		if (conexion) {
+			for (Pais p: Pais.values()) {
+				c.addItem(p.getNombrePais());
+			}
+		} else {
+			Divisas divisas = new Divisas();
+
+			for (String d: divisas.getDivisas()) {
+				c.addItem(d);
+			}
 		}
 	}
 
-	private void cargarCombo(JComboBox<String> c) {
-		for (Pais p: Pais.values()) {
-			c.addItem(p.getNombrePais());
+	/**
+	 * Carga el {@link JComboBox} con las conversiones de temperatura disponibles.
+	 * @param c {@link JComboBox<String>} donde se cargaran los datos.
+	 */
+	private void cargarComboT(JComboBox<String> c) {
+		Temperatura t = new Temperatura();
+
+		for (String s: t.getTemperaturas()) {
+			c.addItem(s);
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

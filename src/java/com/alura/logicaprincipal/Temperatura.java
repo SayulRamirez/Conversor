@@ -8,10 +8,10 @@ import javax.swing.*;
  *
  */
 
-public class Temperatura extends Conversion implements ResolverConversion {
+public class Temperatura  implements ResolverConversion {
 
 	private double resultado;
-	private String[] temperaturas = {
+	private final String[] temperaturas = {
 			"",
 			"Celsius",
 			"Kelvin",
@@ -19,12 +19,6 @@ public class Temperatura extends Conversion implements ResolverConversion {
 			"Rankine"
 	};
 
-	/**
-	 * MÉTODO PARA AÑADIR LOS ITEMS AL COMBOBOX
-	 * @param combo
-	 * COMBOBOX DÓNDE SERÁN CARGADOS LOS ITEMS
-	 */
-	
 	private void celsiusKelvin(double inicio) {
 		resultado = inicio + 273;		
 	}

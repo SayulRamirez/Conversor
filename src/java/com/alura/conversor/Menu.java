@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import com.alura.enums.Opciones;
+import com.alura.validaciones.ValidarConexion;
 
 import java.awt.*;
 import java.util.Objects;
@@ -59,7 +60,7 @@ public class Menu extends JFrame {
 		botonComenzar.addActionListener(e -> {
             String seleccion = Objects.requireNonNull(comboBoxSeleccion.getSelectedItem()).toString();
 
-            Principal ventanaPrincipal = new Principal(seleccion);
+            Principal ventanaPrincipal = new Principal(seleccion, ValidarConexion.tieneConexion());
             ventanaPrincipal.setVisible(true);
             dispose();
         });

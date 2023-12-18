@@ -4,5 +4,5 @@ import javax.swing.JTextField;
 
 public interface ResolverConversion {
 
-	public void resolver(JTextField t, String conversionInicial, String conversionFinal, double inicio);
+	void resolver(JTextField t, String conversionInicial, String conversionFinal, double inicio);
 }

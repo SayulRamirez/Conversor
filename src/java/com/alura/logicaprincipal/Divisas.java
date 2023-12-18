@@ -9,11 +9,11 @@ import javax.swing.JTextField;
  *
  */
 
-public class Divisas extends Conversion implements ResolverConversion{
+public class Divisas implements ResolverConversion{
 	
 	private double resultado;
 	
-	private String[] divisas = {
+	private final String[] divisas = {
 			"",
 			"Peso Mexicano",
 			"Dólar",
@@ -30,7 +30,7 @@ public class Divisas extends Conversion implements ResolverConversion{
 	private static final String DOLAR_YEN = "139.04";
 	private static final String DOLAR_WONG = "1277.49";
 	
-	private String[] taza = {
+	private final String[] taza = {
 			"",
 			DOLAR_PESO,
 			DOLAR_DOLAR,
@@ -39,7 +39,6 @@ public class Divisas extends Conversion implements ResolverConversion{
 			DOLAR_YEN,
 			DOLAR_WONG
 	};
-	
 
 	/**
 	 * EL MÉTODO RESULEVE LA CONVERSIÓN DESEADA POR EL USUARIO
@@ -64,11 +63,9 @@ public class Divisas extends Conversion implements ResolverConversion{
 				if(divisas[i].equals(conversionInicial) && divisas[j].equals(conversionFinal)) {
 					
 					resultado = Math.round((inicio / Double.parseDouble(taza[i])) * Double.parseDouble(taza[j])*100.0) / 100.0;
-					
 				}
 			}
 		}
-		
 		t.setText("Equivale a " + this.resultado + " " + conversionFinal); 		
 	}
 	
