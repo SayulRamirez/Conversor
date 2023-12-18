@@ -6,7 +6,6 @@ import javax.swing.border.EmptyBorder;
 import com.alura.enums.Opciones;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Objects;
 
 /**
@@ -57,16 +56,13 @@ public class Menu extends JFrame {
         botonComenzar.setFont(new Font("Tahoma", Font.BOLD, 16));
         botonComenzar.setBounds(10, 298, 271, 27);
         paneMenu.add(botonComenzar);
-		botonComenzar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                String seleccion = Objects.requireNonNull(comboBoxSeleccion.getSelectedItem()).toString();
+		botonComenzar.addActionListener(e -> {
+            String seleccion = Objects.requireNonNull(comboBoxSeleccion.getSelectedItem()).toString();
 
-                Principal ventanaPrincipal = new Principal(seleccion);
-                ventanaPrincipal.setVisible(true);
-                dispose();
-            }
-		});
+            Principal ventanaPrincipal = new Principal(seleccion);
+            ventanaPrincipal.setVisible(true);
+            dispose();
+        });
 
         JLabel labelFondoMenu = new JLabel("");
         labelFondoMenu.setIcon(new ImageIcon(Objects.requireNonNull(Menu.class.getResource("/images/fondoTres.png"))));

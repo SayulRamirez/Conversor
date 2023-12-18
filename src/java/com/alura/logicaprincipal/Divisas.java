@@ -1,6 +1,5 @@
 package com.alura.logicaprincipal;
 
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 /**

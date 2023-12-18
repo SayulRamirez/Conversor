@@ -8,6 +8,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Objects;
 
+import com.alura.controller.ConversionController;
+import com.alura.enums.Pais;
 import com.alura.logicaprincipal.*;
 
 /**
@@ -16,17 +18,9 @@ import com.alura.logicaprincipal.*;
  * @author sayul
  *
  */
-public class Principal extends JFrame implements MouseListener {
-	private JTextField textFieldCantidad, textFieldResultado;
-	private JComboBox<String> comboBoxInicio, comboBoxFinal;
-	private JButton botonAplicar;
-	private JMenuItem menuCambiar, menuSalir, menuLimpiar, menuAcerca;
+public class Principal extends JFrame {
 	private Temperatura temperatura = new Temperatura();
 	private Divisas divisas = new Divisas();
-	private Menu menu = new Menu();
-	private JLabel labelGitHub, labelLinkedIn, labelNombre, labelContacto;
-	private String valorInicial, conversionInicial, conversionFinal, opcion;
-	private double inicio;
 	private String opcionEleginda;
 
 	/**
@@ -47,14 +41,54 @@ public class Principal extends JFrame implements MouseListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		// Elecciones para la conversión final.
+		JComboBox<String> comboBoxFinal = new JComboBox<>();
+		comboBoxFinal.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboBoxFinal.setBounds(270, 190, 220, 27);
+		contentPane.add(comboBoxFinal);
+
+		//cargarCombo(comboBoxFinal, opcionEleginda); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
+		cargarCombo(comboBoxFinal);
+
+		JLabel labelA = new JLabel("a:");
+		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelA.setBounds(270, 166, 29, 21);
+		contentPane.add(labelA);
+
+		// Elecciones para la conversión inicial.
+		JComboBox<String> comboBoxInicio = new JComboBox<>();
+		comboBoxInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboBoxInicio.setBounds(10, 190, 220, 27);
+		contentPane.add(comboBoxInicio);
+
+		//cargarCombo(comboBoxInicio, opcionEleginda); // Se cargan los datos dependiendo el tipo de conversión.
+		cargarCombo(comboBoxInicio);
+
+		// JTextField donde se muestra el resultado.
+		JTextField textFieldResultado = new JTextField();
+		textFieldResultado.setEditable(false);
+		textFieldResultado.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textFieldResultado.setBounds(115, 246, 270, 27);
+		contentPane.add(textFieldResultado);
+		textFieldResultado.setColumns(10);
+
+		// JTextField donde se ingresa la cantidad a realizar la conversión.
+		JTextField textFieldCantidad = new JTextField();
+		textFieldCantidad.setBorder(null);
+		textFieldCantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textFieldCantidad.setBounds(270, 114, 220, 27);
+		contentPane.add(textFieldCantidad);
+		textFieldCantidad.setColumns(10);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		menuBar.setBorderPainted(false);
 		setJMenuBar(menuBar);
-		
+
+		// SE AGREGAN LAS OPCIONES DE CONVERSIÓN DISPONIBLES
 		JMenu menuOpciones = new JMenu("Opciones");
-		menuBar.add(menuOpciones); // SE AGREGAN LAS OPCIONES DE CONVERSIÓN DISPONIBLES
+		menuBar.add(menuOpciones);
 		
 		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
 		menuCambiar.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/conversion.png"))));
@@ -91,9 +125,41 @@ public class Principal extends JFrame implements MouseListener {
 			}
 		});
 
+		// Dentro de este menú se encuentran los datos de contacto.
 		JMenuItem menuAcerca = new JMenuItem("Acerca de");
 		menuAcerca.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/acerca.png"))));
 		menuBar.add(menuAcerca);
+
+		JLabel labelNombre = new JLabel("Desarrollador: Saúl Ramírez");
+		JLabel labelContacto = new JLabel("Enlaces de contacto: ");
+
+		// En estos JLabel se agrega el enlace para las páginas de contacto, los cuales te direccionan a la página.
+		JLabel labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
+		labelGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		labelGitHub.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://github.com/SayulRamirez"));
+				} catch (IOException | URISyntaxException ex){
+					System.out.println("Ocurrio un error al cargar la página.");
+				}
+			}
+		});
+
+		JLabel labelLinkedIn = new JLabel("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>");
+		labelLinkedIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		labelLinkedIn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/sayul-ramirez"));
+				} catch (IOException | URISyntaxException ex){
+					System.out.println("Ocurrio un error al cargar la página.");
+				}
+			}
+		});
+
 		menuAcerca.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -103,7 +169,6 @@ public class Principal extends JFrame implements MouseListener {
 						labelGitHub,
 						labelLinkedIn
 				};
-
 				JOptionPane.showMessageDialog(null, labelLinks);
 			}
 		});
@@ -111,8 +176,7 @@ public class Principal extends JFrame implements MouseListener {
 		JLabel labelEquivalencia = new JLabel("Equivalencia:");
 		labelEquivalencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelEquivalencia.setBounds(21, 246, 97, 21);
-		//contentPane.add(labelEquivalencia);
-		
+
 	    JButton botonAplicar = new JButton("Aplicar conversión");
 		botonAplicar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		botonAplicar.setBackground(new Color(255, 255, 255));
@@ -122,62 +186,40 @@ public class Principal extends JFrame implements MouseListener {
 		botonAplicar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				valorInicial = textFieldCantidad.getText();
-				conversionInicial = Objects.requireNonNull(comboBoxInicio.getSelectedItem()).toString();
-				conversionFinal = Objects.requireNonNull(comboBoxFinal.getSelectedItem()).toString();
+				String valorInicial = textFieldCantidad.getText();
+				String conversionInicial = Objects.requireNonNull(comboBoxInicio.getSelectedItem()).toString();
+				String conversionFinal = Objects.requireNonNull(comboBoxFinal.getSelectedItem()).toString();
+
+				String origen = Pais.getByNombrePais(conversionInicial).toString();
+				String destino = Pais.getByNombrePais(conversionFinal).toString();
 
 				if (Principal.isString(valorInicial) || conversionInicial.equals(conversionFinal)) {
-
 					JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
 							+ "las dos opciones y las opciones deben ser diferentes");
 
-				} else {
+					throw new RuntimeException();
+				}
 
-					inicio = Double.parseDouble(valorInicial);
-					solucionConversion(opcion);
+				double valor = Double.parseDouble(valorInicial);
+
+				if("temperaturas".equals(opcion)) {
+					temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
+				/*}  else if ("divisas".equals(opcion)) {
+					divisas.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
+					*/
+
+				} else if ("divisas".equals(opcion)) {
+					ConversionController cc = new ConversionController();
+					double resultado = cc.aplicarConversion(valor, origen, destino);
+					textFieldResultado.setText(String.valueOf(resultado));
 				}
 			}
 		});
-		//botonAplicar.addActionListener(this);
-		
-		textFieldResultado = new JTextField();
-		textFieldResultado.setEditable(false);
-		textFieldResultado.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textFieldResultado.setBounds(115, 246, 270, 27);
-		contentPane.add(textFieldResultado);
-		textFieldResultado.setColumns(10);
-		
-		comboBoxFinal = new JComboBox<>();
-		comboBoxFinal.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		comboBoxFinal.setBounds(270, 190, 220, 27);
-		contentPane.add(comboBoxFinal);
-		
-		cargarCombo(comboBoxFinal, opcionEleginda); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
-		
-		JLabel labelA = new JLabel("a:");
-		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelA.setBounds(270, 166, 29, 21);
-		contentPane.add(labelA);
-		
-		
-		comboBoxInicio = new JComboBox<>();
-		comboBoxInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		comboBoxInicio.setBounds(10, 190, 220, 27);
-		contentPane.add(comboBoxInicio);
-		
-		cargarCombo(comboBoxInicio, opcionEleginda); // SE CARGAN LOS DATOS DEPENDIENDO EL TIPO DE CONVERSIÓN
-		
+
 		JLabel labelCambio = new JLabel("Cambiar de: ");
 		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelCambio.setBounds(10, 166, 97, 21);
 		contentPane.add(labelCambio);
-		
-		textFieldCantidad = new JTextField();
-		textFieldCantidad.setBorder(null);
-		textFieldCantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textFieldCantidad.setBounds(270, 114, 220, 27);
-		contentPane.add(textFieldCantidad);
-		textFieldCantidad.setColumns(10);
 		
 		JLabel labelMonto = new JLabel("Ingresa la cantidad para convertir:");
 		labelMonto.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -197,92 +239,10 @@ public class Principal extends JFrame implements MouseListener {
 		labelBanner.setForeground(new Color(0, 0, 0));
 		labelBanner.setBackground(new Color(0, 0, 0));
 		labelBanner.setBorder(null);
-		labelBanner.setIcon(new ImageIcon(Principal.class.getResource("/images/fondoTres.png")));
+		labelBanner.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/fondoTres.png"))));
 		labelBanner.setBounds(0, 0, 500, 353);
 		contentPane.add(labelBanner);
-		
-		/**
-		 * EN ESTOS LABELS SE AGREGA EL ENLACE PARA LAS PÁGINAS DE CONTACTO
-		 * LOS CUALES TE DIRECCIONAN A CADA PÁGINA
-		 */
-		JLabel labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
-		labelGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		//labelGitHub.addMouseListener(this);
-		
-		JLabel labelLinkedIn = new JLabel("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>");
-		labelLinkedIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		//labelLinkedIn.addMouseListener(this);
-		
-		JLabel labelNombre = new JLabel("Desarrollador: Saúl Ramírez");
-		labelContacto = new JLabel("Enlaces de contacto: ");
 	}
-
-	/*
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		// SI SE SELECCIONA EL MENU CAMBIAR SE CIERRA LA VENTANA Y SE HABRE LA DEL MENU PARA ELEGIR OTRA
-		if(e.getSource() == menuCambiar) {
-			Menu menu = new Menu();			
-			menu.setVisible(true);
-			menu.setResizable(false);
-			menu.setBounds(0, 0, 307, 398);
-			menu.setLocationRelativeTo(null);
-			this.setVisible(false);
-		}
-		
-		// CIERRA EL PROGRAMA PRESIONANDO EL MENU SALIR
-		if(e.getSource() == menuSalir) {
-			System.exit(WIDTH);
-		}
-		
-		// RESTABLECE LOS TFIELDS Y LOS COMOBOBOX
-		if(e.getSource() == menuLimpiar) {
-			textFieldCantidad.setText("");
-			textFieldResultado.setText("");
-			comboBoxInicio.setSelectedIndex(0);
-			comboBoxFinal.setSelectedIndex(0);
-		}
-		
-		// LANZA UN JOPTIONPANE CON LOS DATOS DE CONTACTO 
-		if(e.getSource() == menuAcerca) {
-			JLabel[] labelLinks = {
-					labelNombre,
-					labelContacto,
-					labelGitHub,
-					labelLinkedIn
-			};
-			
-			JOptionPane.showMessageDialog(null, labelLinks);
-		}
-		
-		
-		**
-		 * HACE LA CONVERSION DE LAS UNIDADES, PRIMERO RECUPERANDO LOS VALORES DE TEXTFIELD Y DE LOS COMBOBOX,
-		 * POSTERIOR CORROBORA QUE SE HAYAN INGRESADO LOS DATOS CORRECTAMENTE SI HAY ALGUNO ERRONEO LANZA UN MENSAJE DE ERROR
-		 * Y SI NO PROCEDE A LA CONVERSIÓN
-
-		if (e.getSource() == botonAplicar) {
-			
-			valorInicial = textFieldCantidad.getText();
-			conversionInicial = comboBoxInicio.getSelectedItem().toString();
-			conversionFinal = comboBoxFinal.getSelectedItem().toString();	
-			
-			if (Principal.isString(valorInicial) || conversionInicial.equals("") || conversionFinal.equals("") || conversionInicial.equals(conversionFinal)) {
-			
-				JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
-						+ "las dos opciones y las opciones deben ser diferentes");
-				
-			} else {
-				
-				inicio = Double.parseDouble(valorInicial);
-				solucionConversion(opcion);
-			}
-		}
-		/
-	}*/
-
-	
 
 	/**
 	 * EL MÉTODO INTENTA CONVERTIR EL STRING INGRESADO A DOUBLE SI NO ES UN DOUBLE REGRESA TRUE INDICANDO QUE ES UN STRING 
@@ -295,9 +255,9 @@ public class Principal extends JFrame implements MouseListener {
 	public static boolean isString(String str){
 		try{
 			double d = Double.parseDouble(str);
-			} catch(NumberFormatException nfe){
-				return true;  	  
-				}
+		} catch(NumberFormatException nfe){
+			return true;
+		}
 		return false;
 	}
 	  
@@ -313,61 +273,11 @@ public class Principal extends JFrame implements MouseListener {
 			divisas.anadirDatos(combo, divisas.getDivisas());
 		}
 	}
-	
-	/**
-	 * EL MÉTODO MANDA A LLAMAR A LOS MÉTODOS DE RESOLUCION DE LA CONVERSION DEPENDIENDO LA OPCION QUE ELIGIO 
-	 * EL USUARIO
-	 * @param opcion
-	 * SE INGRESA LA OPCION ELEGIDA POR EL USUARIO
-	 */
-	private void solucionConversion(String opcion) {
-		if("temperaturas".equals(opcion)) {
-			temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
-		}  else if ("divisas".equals(opcion)) {
-			divisas.resolver(textFieldResultado, conversionInicial, conversionFinal, inicio);
+
+	private void cargarCombo(JComboBox<String> c) {
+		for (Pais p: Pais.values()) {
+			c.addItem(p.getNombrePais());
 		}
-	}
-
-	/**
-	 * MÉTODO PARA CARGAR LAS URL DE LOS ENLACES DE CONTACTO
-	 */
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (e.getClickCount() > 0) { // AL DAR CLICK SE HABER LA PAGINA QUE CONTINE, SI SE DAN TRES CLICK HABRE LA PÁGINA TRES VECES
-            try {
-            	if(e.getSource() == labelGitHub) {
-            		// HABRE EL NAVEGADOR DEL SISTEMA CON LA URL ASIGNADA
-            		Desktop.getDesktop().browse(new URI("https://github.com/SayulRamirez"));
-            	}
-            	
-            	if(e.getSource() == labelLinkedIn) {
-            		Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/sayul-ramirez"));            		
-            	}
-            	
-            } catch (IOException | URISyntaxException ex) { 
-                ex.printStackTrace();
-            }
-        }	
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-
 	}
 }
 
