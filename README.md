@@ -11,14 +11,12 @@ El pryecto se realizo gracias al programa ONE de alura latam y oracle, gracias.
 ## :hammer:Funcionalidades del proyecto
 
 - `Menu de conversiones disponibles:`De momento solo estan disponibles la conversión de divisas y de temperatura.<br>
-<br>
-  ![Menú del programa](https://github.com/SayulRamirez/Conversor/assets/131827632/26e80750-8c1a-4664-b1e1-401a9a313a6e)
+  <br>![Menú del programa](https://github.com/SayulRamirez/Conversor/assets/131827632/26e80750-8c1a-4664-b1e1-401a9a313a6e)
        
 <br><br>
 - `Conversión de divisas con conexión o sin conexción`: Permite la conversión de divisas, esto dependiendo si se tiene
   conexión a internet o no.<br>
-<br>
-  ![Pantalla de conversión de divisas](https://github.com/SayulRamirez/Conversor/assets/131827632/410fad57-b977-431b-9f06-6480914e3fb2)
+  <br>![Pantalla de conversión de divisas](https://github.com/SayulRamirez/Conversor/assets/131827632/410fad57-b977-431b-9f06-6480914e3fb2)
     
 <br>
 1. Sin conexión: El programa detecta si se tiene conexión a internet, si no se tiene entrara el el modo sin 
