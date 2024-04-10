@@ -1,10 +1,9 @@
 package com.alura.conversor;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 import com.alura.enums.Opciones;
-import com.alura.validaciones.ValidarConexion;
+import com.alura.validaciones.Valid;
 
 import java.awt.*;
 import java.util.Objects;
@@ -26,53 +25,47 @@ public class Menu extends JFrame {
         setTitle("Menu de Conversiones");
         setBounds(0, 0, 307, 398);
         setLocationRelativeTo(null);
+        setLayout(null);
 
-		JPanel paneMenu = new JPanel();
-        paneMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
+        addLabel("Elige el tipo de conversion a realizar", Font.BOLD, 35, 271, 26);
 
-        setContentPane(paneMenu);
-        paneMenu.setLayout(null);
+        addLabel("Conversiones disponibles:", Font.PLAIN, 124, 170, 27);
 
-        JLabel labelTitulo = new JLabel("Elige el tipo de conversion a realizar");
-        labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 14));
-        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        labelTitulo.setBounds(10, 35, 271, 26);
-        paneMenu.add(labelTitulo);
+        JComboBox<String> comboSelection = new JComboBox<>();
+        comboSelection.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        comboSelection.setBounds(10, 158, 271, 27);
+        addOptions(comboSelection);
+        add(comboSelection);
 
-        JLabel labelDos = new JLabel("Conversiones disponibles: ");
-        labelDos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelDos.setHorizontalAlignment(SwingConstants.CENTER);
-        labelDos.setBounds(10, 124, 170, 26);
-        paneMenu.add(labelDos);
+        JButton btnStart = new JButton("Comenzar conversion");
+        btnStart.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnStart.setFont(new Font("Tahoma", Font.BOLD, 16));
+        btnStart.setBounds(10, 298, 271, 27);
+        add(btnStart);
+		btnStart.addActionListener(e -> {
+            String selection = Objects.requireNonNull(comboSelection.getSelectedItem()).toString();
 
-        JComboBox<String> comboBoxSeleccion = new JComboBox<>();
-        comboBoxSeleccion.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        comboBoxSeleccion.setBounds(10, 158, 271, 27);
-        paneMenu.add(comboBoxSeleccion);
-        opciones(comboBoxSeleccion);
-
-        JButton botonComenzar = new JButton("Comenzar conversion");
-        botonComenzar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        botonComenzar.setFont(new Font("Tahoma", Font.BOLD, 16));
-        botonComenzar.setBounds(10, 298, 271, 27);
-        paneMenu.add(botonComenzar);
-		botonComenzar.addActionListener(e -> {
-            String seleccion = Objects.requireNonNull(comboBoxSeleccion.getSelectedItem()).toString();
-
-            Principal ventanaPrincipal = new Principal(seleccion, ValidarConexion.tieneConexion());
-            ventanaPrincipal.setVisible(true);
+            Principal principal = new Principal(selection, Valid.connection());
+            principal.setVisible(true);
             dispose();
         });
 
-        JLabel labelFondoMenu = new JLabel("");
-        labelFondoMenu.setIcon(new ImageIcon(Objects.requireNonNull(Menu.class.getResource("/images/fondoTres.png"))));
-        labelFondoMenu.setBounds(0, 0, 291, 348);
-        paneMenu.add(labelFondoMenu);
+        JLabel lblBottom = new JLabel();
+        lblBottom.setIcon(new ImageIcon(Objects.requireNonNull(Menu.class.getResource("/images/fondoTres.png"))));
+        lblBottom.setBounds(0, 0, 291, 348);
+        add(lblBottom);
     }
 
-    private void opciones(JComboBox<String> c) {
-        for (Opciones o : Opciones.values()) {
-            c.addItem(o.toString().toLowerCase());
-        }
+    private void addOptions(JComboBox<String> comboBox) {
+        for (Opciones options : Opciones.values()) comboBox.addItem(options.toString().toLowerCase());
+    }
+
+    private void addLabel(String content, int style, int y, int width, int height) {
+
+        JLabel labelTitulo = new JLabel(content);
+        labelTitulo.setFont(new Font("Tahoma", style, 14));
+        labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTitulo.setBounds(10, y, width, height);
+        this.add(labelTitulo);
     }
 }
