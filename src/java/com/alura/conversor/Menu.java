@@ -24,7 +24,6 @@ public class Menu extends JFrame {
         setResizable(false);
         setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/images/iconoDos.png")));
         setTitle("Menu de Conversiones");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, 307, 398);
         setLocationRelativeTo(null);
 
