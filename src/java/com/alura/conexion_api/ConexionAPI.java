@@ -1,5 +1,6 @@
 package com.alura.conexion_api;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -40,7 +41,7 @@ public class ConexionAPI {
 
             return Double.parseDouble(String.format("%.3f", valor * tazaConversion));
 
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             JOptionPane.showMessageDialog(null, "Se a perdidó la conexión a internet.");
             throw new RuntimeException(e);
         }
