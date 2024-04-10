@@ -9,11 +9,11 @@ import javax.swing.JTextField;
  *
  */
 
-public class Divisas implements ResolverConversion{
+public class Coin implements ResolverConversion{
 	
 	private double resultado;
 	
-	private final String[] divisas = {
+	private static final String[] COINS = {
 			"",
 			"Peso Mexicano",
 			"Dólar",
@@ -57,10 +57,10 @@ public class Divisas implements ResolverConversion{
 	@Override
 	public void resolver(JTextField t, String conversionInicial, String conversionFinal, double inicio) {
 
-		for(int i = 1; i < divisas.length; i++) {
-			for(int j = 1; j < divisas.length; j++) {
+		for(int i = 1; i < COINS.length; i++) {
+			for(int j = 1; j < COINS.length; j++) {
 				
-				if(divisas[i].equals(conversionInicial) && divisas[j].equals(conversionFinal)) {
+				if(COINS[i].equals(conversionInicial) && COINS[j].equals(conversionFinal)) {
 					
 					resultado = Math.round((inicio / Double.parseDouble(taza[i])) * Double.parseDouble(taza[j])*100.0) / 100.0;
 				}
@@ -69,7 +69,7 @@ public class Divisas implements ResolverConversion{
 		t.setText("Equivale a " + this.resultado + " " + conversionFinal); 		
 	}
 	
-	public String[] getDivisas() {
-		return this.divisas;
+	public static String[] getCoins() {
+		return COINS;
 	}
 }

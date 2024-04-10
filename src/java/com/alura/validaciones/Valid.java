@@ -13,4 +13,13 @@ public class Valid {
             return false;
         }
     }
+
+    public static boolean isString(String str){
+        try{
+            Double.parseDouble(str);
+            return false;
+        } catch(NumberFormatException nfe){
+            return true;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 package com.alura.enums;
 
-public enum Pais {
+public enum Country {
     AED("United Arab Emirates"),
     AFN("Afghanistan"),
     ALL("Albania"),
@@ -163,9 +163,9 @@ public enum Pais {
     ZMW("Zambia"),
     ZWL("Zimbabwe");
 
-    private String nombrePais;
+    private final String nombrePais;
 
-    Pais(String nombrePais) {
+    Country(String nombrePais) {
         this.nombrePais = nombrePais;
     }
 
@@ -173,10 +173,10 @@ public enum Pais {
         return nombrePais;
     }
 
-    public static Pais getByNombrePais(String nombrePais) {
-        for (Pais pais : values()) {
-            if (pais.getNombrePais().equals(nombrePais)) {
-                return pais;
+    public static Country getByNombrePais(String nombrePais) {
+        for (Country country : values()) {
+            if (country.getNombrePais().equals(nombrePais)) {
+                return country;
             }
         }
         throw new IllegalArgumentException("No se encontró una moneda para el país: " + nombrePais);

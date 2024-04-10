@@ -1,7 +1,6 @@
 package com.alura.conversor;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -9,9 +8,9 @@ import java.net.*;
 import java.util.Objects;
 
 import com.alura.controller.ConversionController;
-import com.alura.enums.Pais;
+import com.alura.enums.Country;
 import com.alura.logicaprincipal.*;
-import com.alura.validaciones.ValidarString;
+import com.alura.validaciones.Valid;
 
 /**
  * VENTANA PRINCIPAL EN LA QUE SE HARÁ LA CONVERSIÓN DEPENDIENDO DE LA OPCIÓN
@@ -20,12 +19,8 @@ import com.alura.validaciones.ValidarString;
  *
  */
 public class Principal extends JFrame {
-	private boolean conexion;
 
-	/**
-	 * Create the frame.
-	 */
-	public Principal(String opcion, boolean c) {
+	public Principal(String option, boolean connection) {
 		setBounds(0, 0, 516, 410);
 		setLayout(null);
 		setLocationRelativeTo(null);
@@ -34,243 +29,216 @@ public class Principal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/images/iconoDos.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.conexion = c;
+		if (!connection) JOptionPane.showMessageDialog(null, "Conversión sin conexión a internet.");
 
-		if (!conexion) {
-			JOptionPane.showMessageDialog(null, "Conversión sin conexión a internet.");
+		JLabel lblBanner = new JLabel();
+		lblBanner.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/fondoTres.png"))));
+		lblBanner.setBounds(0, 0, 500, 353);
+		add(lblBanner);
+
+		JLabel lblTitle = new JLabel("ELIGE LA CONVERSIÓN A REALIZAR");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 23));
+		lblTitle.setForeground(new Color(106, 0, 0));
+		lblTitle.setBounds(30, 31, 446, 37);
+		add(lblTitle);
+
+		addLabel("Ingresar la cantidad para convertir", 10, 114, 245);
+
+		JTextField txtInput = new JTextField();
+		txtInput.setBorder(null);
+		txtInput.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtInput.setBounds(270, 114, 220, 27);
+		add(txtInput);
+		txtInput.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char keyChar = e.getKeyChar();
+
+				if (!Character.isDigit(keyChar)) e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+			}
+		});
+
+		addLabel("Cambiar de:", 10, 166, 97);
+
+		JComboBox<String> comboStart = new JComboBox<>();
+		comboStart.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboStart.setBounds(10, 190, 220, 27);
+		add(comboStart);
+
+		addLabel("a:", 270, 166, 29);
+
+		JComboBox<String> comboFinal = new JComboBox<>();
+		comboFinal.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		comboFinal.setBounds(270, 190, 220, 27);
+		add(comboFinal);
+
+		if("temperaturas".equals(option)) {
+			loadOptionsTemperature(comboStart,comboFinal);
+		} else {
+			loadComboCoins(comboStart, comboFinal, connection);
 		}
 
-		JPanel contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-
-		// Elecciones para la conversión final.
-		JComboBox<String> comboBoxFinal = new JComboBox<>();
-		comboBoxFinal.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		comboBoxFinal.setBounds(270, 190, 220, 27);
-		contentPane.add(comboBoxFinal);
-
-		if("temperaturas".equals(opcion)) {
-			cargarComboT(comboBoxFinal);
-		} else if ("divisas".equals(opcion)) {
-			cargarCombo(comboBoxFinal, this.conexion);
-		}
-
-		JLabel labelA = new JLabel("a:");
-		labelA.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelA.setBounds(270, 166, 29, 21);
-		contentPane.add(labelA);
-
-		// Elecciones para la conversión inicial.
-		JComboBox<String> comboBoxInicio = new JComboBox<>();
-		comboBoxInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		comboBoxInicio.setBounds(10, 190, 220, 27);
-		contentPane.add(comboBoxInicio);
-
-		if("temperaturas".equals(opcion)) {
-			cargarComboT(comboBoxInicio);
-		} else if ("divisas".equals(opcion)) {
-			cargarCombo(comboBoxInicio, this.conexion);
-		}
-
-		// JTextField donde se muestra el resultado.
-		JTextField textFieldResultado = new JTextField();
-		textFieldResultado.setEditable(false);
-		textFieldResultado.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textFieldResultado.setBounds(115, 246, 270, 27);
-		contentPane.add(textFieldResultado);
-		textFieldResultado.setColumns(10);
-
-		// JTextField donde se ingresa la cantidad a realizar la conversión.
-		JTextField textFieldCantidad = new JTextField();
-		textFieldCantidad.setBorder(null);
-		textFieldCantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textFieldCantidad.setBounds(270, 114, 220, 27);
-		contentPane.add(textFieldCantidad);
-		textFieldCantidad.setColumns(10);
-		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		menuBar.setBorderPainted(false);
 		setJMenuBar(menuBar);
 
-		// SE AGREGAN LAS OPCIONES DE CONVERSIÓN DISPONIBLES
-		JMenu menuOpciones = new JMenu("Opciones");
-		menuBar.add(menuOpciones);
+		JMenu menuOptions = new JMenu("Opciones");
+		menuBar.add(menuOptions);
 		
-		JMenuItem menuCambiar = new JMenuItem("Cambiar tipo de conversión");
-		menuCambiar.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/conversion.png"))));
-		menuOpciones.add(menuCambiar);
-		menuCambiar.addActionListener(e-> {
+		JMenuItem menuChange = new JMenuItem("Cambiar tipo de conversión");
+		menuChange.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/conversion.png"))));
+		menuOptions.add(menuChange);
+		menuChange.addActionListener(e-> {
             Menu menu = new Menu();
             menu.setVisible(true);
             dispose();
 		});
 
-		JMenuItem menuSalir = new JMenuItem("Salir");
-		menuSalir.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/salir.png"))));
-		menuOpciones.add(menuSalir);
-		menuSalir.addActionListener(e -> System.exit(0));
+		JMenuItem menuExit = new JMenuItem("Salir");
+		menuExit.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/salir.png"))));
+		menuOptions.add(menuExit);
+		menuExit.addActionListener(e -> System.exit(0));
 
-		JMenuItem menuLimpiar = new JMenuItem("Limpiar");
-		menuLimpiar.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/limpiar.png"))));
-		menuBar.add(menuLimpiar);
-		menuLimpiar.addActionListener(e -> {
-            textFieldCantidad.setText("");
-            textFieldResultado.setText("");
-            comboBoxInicio.setSelectedIndex(0);
-            comboBoxFinal.setSelectedIndex(0);
-        });
+		JMenuItem menuClear = new JMenuItem("Limpiar");
+		menuClear.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/limpiar.png"))));
+		menuBar.add(menuClear);
 
-		// Dentro de este menú se encuentran los datos de contacto.
-		JMenuItem menuAcerca = new JMenuItem("Acerca de");
-		menuAcerca.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/acerca.png"))));
-		menuBar.add(menuAcerca);
+		JMenuItem menuAbout = new JMenuItem("Acerca de");
+		menuAbout.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/acerca.png"))));
+		menuBar.add(menuAbout);
 
-		JLabel labelNombre = new JLabel("Desarrollador: Saúl Ramírez");
-		JLabel labelContacto = new JLabel("Enlaces de contacto: ");
+		JLabel lblName = new JLabel("Desarrollador: Saúl Ramírez");
+		JLabel lblContact = new JLabel("Enlaces de contacto: ");
 
+		JLabel lblGitHub = addLabelLink("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>", "https://github.com/SayulRamirez");
 
-		JLabel labelGitHub = new JLabel("<html><a href=\"https://github.com/SayulRamirez\">GitHub</a></html>");
-		labelGitHub.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		labelGitHub.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Desktop.getDesktop().browse(new URI("https://github.com/SayulRamirez"));
-				} catch (IOException | URISyntaxException ex){
-					System.out.println("Ocurrio un error al cargar la página.");
-				}
-			}
-		});
+		JLabel lblLinkedIn = addLabelLink("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>", "https://www.linkedin.com/in/sayul-ramirez");
 
-		// En estos JLabel se agrega el enlace para las páginas de contacto, los cuales te direccionan a la página.
-		JLabel labelLinkedIn = new JLabel("<html><a href=\"https://www.linkedin.com/in/sayul-ramirez/\">LinkIn</a></html>");
-		labelLinkedIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		labelLinkedIn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Desktop.getDesktop().browse(new URI("https://www.linkedin.com/in/sayul-ramirez"));
-				} catch (IOException | URISyntaxException ex){
-					System.out.println("Ocurrio un error al cargar la página.");
-				}
-			}
-		});
-
-		menuAcerca.addActionListener(e -> {
+		menuAbout.addActionListener(e -> {
             JLabel[] labelLinks = {
-                    labelNombre,
-                    labelContacto,
-                    labelGitHub,
-                    labelLinkedIn
+                    lblName,
+                    lblContact,
+                    lblGitHub,
+                    lblLinkedIn
             };
             JOptionPane.showMessageDialog(null, labelLinks);
         });
 
-		JLabel labelEquivalencia = new JLabel("Equivalencia:");
-		labelEquivalencia.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelEquivalencia.setBounds(21, 246, 97, 21);
+		addLabel("Equivalencia:", 51, 246, 97);
 
-	    JButton botonAplicar = new JButton("Aplicar conversión");
-		botonAplicar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		botonAplicar.setBackground(new Color(255, 255, 255));
-		botonAplicar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		botonAplicar.setBounds(115, 307, 270, 27);
-		contentPane.add(botonAplicar);
+		JTextField txtResult = new JTextField();
+		txtResult.setEditable(false);
+		txtResult.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtResult.setBounds(155, 246, 270, 27);
+		add(txtResult);
 
-		botonAplicar.addActionListener(e -> {
-            String valorInicial = textFieldCantidad.getText();
-            String conversionInicial = Objects.requireNonNull(comboBoxInicio.getSelectedItem()).toString();
-            String conversionFinal = Objects.requireNonNull(comboBoxFinal.getSelectedItem()).toString();
+		menuClear.addActionListener(e -> {
+			txtInput.setText("");
+			txtResult.setText("");
+			comboStart.setSelectedIndex(0);
+			comboFinal.setSelectedIndex(0);
+		});
 
-            if (ValidarString.isString(valorInicial) || conversionInicial.equals(conversionFinal)) {
-                JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar \n"
-                        + "las dos opciones y las opciones deben ser diferentes");
+	    JButton btnConvert = new JButton("Aplicar conversión");
+		btnConvert.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnConvert.setBackground(new Color(255, 255, 255));
+		btnConvert.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnConvert.setBounds(115, 307, 270, 27);
+		add(btnConvert);
 
+		btnConvert.addActionListener(e -> {
+            String valueInput = txtInput.getText();
+            String beginning = Objects.requireNonNull(comboStart.getSelectedItem()).toString();
+            String end = Objects.requireNonNull(comboFinal.getSelectedItem()).toString();
+
+            if (Valid.isString(valueInput) || beginning.equals(end)) {
+                JOptionPane.showMessageDialog(null, "El valor debe ser númerico y debes de seleccionar las dos opciones y las opciones deben ser diferentes");
                 throw new RuntimeException();
             }
 
-            double valor = Double.parseDouble(valorInicial);
+            double value = Double.parseDouble(valueInput);
 
-            if("temperaturas".equals(opcion)) {
+            if("temperaturas".equals(option)) {
 				Temperatura temperatura = new Temperatura();
-                temperatura.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
+                temperatura.resolver(txtResult, beginning, end, value);
 
-            } else if ("divisas".equals(opcion)) {
+            } else {
 
-				if (conexion) {
-					String origen = Pais.getByNombrePais(conversionInicial).toString();
-					String destino = Pais.getByNombrePais(conversionFinal).toString();
+				if (connection) {
+					String origin = Country.getByNombrePais(beginning).toString();
+					String destination = Country.getByNombrePais(end).toString();
 
-					ConversionController cc = new ConversionController();
-					double resultado = cc.aplicarConversion(valor, origen, destino);
-					textFieldResultado.setText(String.valueOf(resultado));
+					ConversionController controller = new ConversionController();
+
+					double resultado = controller.aplicarConversion(value, origin, destination);
+
+					txtResult.setText(String.valueOf(resultado));
+
 				} else {
-					Divisas d = new Divisas();
-                	d.resolver(textFieldResultado, conversionInicial, conversionFinal, valor);
+
+					Coin coin = new Coin();
+                	coin.resolver(txtResult, beginning, end, value);
 				}
             }
         });
-
-		JLabel labelCambio = new JLabel("Cambiar de: ");
-		labelCambio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelCambio.setBounds(10, 166, 97, 21);
-		contentPane.add(labelCambio);
-		
-		JLabel labelMonto = new JLabel("Ingresa la cantidad para convertir:");
-		labelMonto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelMonto.setBounds(10, 114, 245, 21);
-		contentPane.add(labelMonto);
-		
-		JLabel labelTitulo = new JLabel("ELIGE LA CONVERSIÓN A REALIZAR");
-		labelTitulo.setBackground(new Color(0, 0, 0));
-		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 23));
-		labelTitulo.setForeground(new Color(106, 0, 0));
-		labelTitulo.setBounds(30, 31, 446, 37);
-		contentPane.add(labelTitulo);
-		
-		JLabel labelBanner = new JLabel("");
-		labelBanner.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		labelBanner.setForeground(new Color(0, 0, 0));
-		labelBanner.setBackground(new Color(0, 0, 0));
-		labelBanner.setBorder(null);
-		labelBanner.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/fondoTres.png"))));
-		labelBanner.setBounds(0, 0, 500, 353);
-		contentPane.add(labelBanner);
 	}
 
-
-	/**
-	 * Carga los datos de las divisas dependiendo si el equipo tiene conexión a internet o no.
-	 * @param c {@link JComboBox<String>} en el que se cargaran los datos.
-	 * @param conexion {@link Boolean} true si sí tiene conexión, false si no.
-	 */
-	private void cargarCombo(JComboBox<String> c, boolean conexion) {
-		if (conexion) {
-			for (Pais p: Pais.values()) {
-				c.addItem(p.getNombrePais());
+	private static JLabel addLabelLink(String text, String url) {
+		JLabel label = new JLabel(text);
+		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Desktop.getDesktop().browse(new URI(url));
+				} catch (IOException | URISyntaxException ex) {
+					System.out.println("Ocurrio un error al cargar la página.");
+				}
 			}
-		} else {
-			Divisas divisas = new Divisas();
+		});
+		return label;
+	}
 
-			for (String d: divisas.getDivisas()) {
-				c.addItem(d);
+	private void loadComboCoins(JComboBox<String> comboStart, JComboBox<String> comboEnd, boolean connection) {
+		
+		if (connection) {
+			for (Country country: Country.values()) {
+				comboStart.addItem(country.getNombrePais());
+				comboEnd.addItem(country.getNombrePais());
 			}
+			return;
+		}
+		
+		for (String coin: Coin.getCoins()) {
+			comboStart.addItem(coin);
+			comboEnd.addItem(coin);
 		}
 	}
 
-	/**
-	 * Carga el {@link JComboBox} con las conversiones de temperatura disponibles.
-	 * @param c {@link JComboBox<String>} donde se cargaran los datos.
-	 */
-	private void cargarComboT(JComboBox<String> c) {
-		Temperatura t = new Temperatura();
+	private void loadOptionsTemperature(JComboBox<String> comboStart, JComboBox<String> comboEnd) {
 
-		for (String s: t.getTemperaturas()) {
-			c.addItem(s);
+		for (String temperature: Temperatura.getTemperaturas()) {
+			comboStart.addItem(temperature);
+			comboEnd.addItem(temperature);
 		}
+	}
+
+	private void addLabel(String content, int x, int y, int width) {
+		JLabel label = new JLabel(content);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label.setBounds(x, y, width, 21);
+		this.add(label);
 	}
 }

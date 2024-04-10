@@ -11,7 +11,7 @@ import javax.swing.*;
 public class Temperatura  implements ResolverConversion {
 
 	private double resultado;
-	private final String[] temperaturas = {
+	private static final String[] temperaturas = {
 			"",
 			"Celsius",
 			"Kelvin",
@@ -136,7 +136,7 @@ public class Temperatura  implements ResolverConversion {
 		}
 	}
 	
-	public String[] getTemperaturas() {
-		return this.temperaturas;
+	public static String[] getTemperaturas() {
+		return temperaturas;
 	}
 }
