@@ -1,11 +1,11 @@
 package com.alura.controller;
 
-import com.alura.conexion_api.ConexionAPI;
+import com.alura.conexion_api.ConnectionAPI;
 
 public class ConversionController {
 
-    public double aplicarConversion(double valor, String origen, String destino) {
+    public double applyConversion(double value, String beginning, String destination) {
 
-        return ConexionAPI.aplicarConversion(valor, origen, destino);
+        return ConnectionAPI.applyConversion(value, beginning, destination);
     }
 }

@@ -10,7 +10,7 @@ El pryecto se realizo gracias al programa ONE de alura latam y oracle, gracias.
 
 ## :hammer:Funcionalidades del proyecto
 
-- `Menu de conversiones disponibles:`De momento solo estan disponibles la conversión de divisas y de temperatura.<br>
+- `Menu de conversiones disponibles:`De momento solo estan disponibles la conversión de divisas y de temperature.<br>
   <br>![Menú del programa](https://github.com/SayulRamirez/Conversor/assets/131827632/26e80750-8c1a-4664-b1e1-401a9a313a6e)
        
 <br><br>
@@ -25,7 +25,7 @@ El pryecto se realizo gracias al programa ONE de alura latam y oracle, gracias.
    podra consultar los 161 tipos de conversión disponibles y en tiempo real.
 
 <br><br>
--  `Pantalla de las conversiones de temperaturas:` Te permite pasar de cualquier unidad de temperatura.
+-  `Pantalla de las conversiones de temperaturas:` Te permite pasar de cualquier unidad de temperature.
   Las unidades disponibles son: Celsius, Fahrenheit, Kelvin y Rankine.<br>
   <br>![Pantalla de conversión de temperaturas](https://github.com/SayulRamirez/Conversor/assets/131827632/b026418d-a510-45b5-9ab5-0a6003f5d5d5)
      

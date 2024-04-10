@@ -171,8 +171,10 @@ public class Principal extends JFrame {
             double value = Double.parseDouble(valueInput);
 
             if("temperaturas".equals(option)) {
-				Temperatura temperatura = new Temperatura();
-                temperatura.resolver(txtResult, beginning, end, value);
+				Temperature temperature = new Temperature();
+				double result = temperature.resolve(beginning, end, value);
+
+				txtResult.setText("Equivale a " + result + " " + end);
 
             } else {
 
@@ -180,16 +182,18 @@ public class Principal extends JFrame {
 					String origin = Country.getByNombrePais(beginning).toString();
 					String destination = Country.getByNombrePais(end).toString();
 
-					ConversionController controller = new ConversionController();
+					ConversionController api = new ConversionController();
 
-					double resultado = controller.aplicarConversion(value, origin, destination);
+					double result = api.applyConversion(value, origin, destination);
 
-					txtResult.setText(String.valueOf(resultado));
+					txtResult.setText(String.valueOf(result));
 
 				} else {
 
 					Coin coin = new Coin();
-                	coin.resolver(txtResult, beginning, end, value);
+                	double result = coin.resolver(beginning, end, value);
+
+					txtResult.setText("Equivale a " + result + " " + end);
 				}
             }
         });
@@ -220,8 +224,18 @@ public class Principal extends JFrame {
 			}
 			return;
 		}
+
+		String[] coins = {
+				"",
+				"Peso Mexicano",
+				"Dólar",
+				"Euros",
+				"Libras Esterlinas",
+				"Yen Japonés",
+				"Won sur-coreano"
+		};
 		
-		for (String coin: Coin.getCoins()) {
+		for (String coin: coins) {
 			comboStart.addItem(coin);
 			comboEnd.addItem(coin);
 		}
@@ -229,7 +243,15 @@ public class Principal extends JFrame {
 
 	private void loadOptionsTemperature(JComboBox<String> comboStart, JComboBox<String> comboEnd) {
 
-		for (String temperature: Temperatura.getTemperaturas()) {
+		String[] temperatures = {
+				"",
+				"Celsius",
+				"Kelvin",
+				"Fahrenheit",
+				"Rankine"
+		};
+
+		for (String temperature: temperatures) {
 			comboStart.addItem(temperature);
 			comboEnd.addItem(temperature);
 		}
