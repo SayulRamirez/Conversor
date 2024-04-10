@@ -31,11 +31,6 @@ public class Principal extends JFrame {
 
 		if (!connection) JOptionPane.showMessageDialog(null, "Conversión sin conexión a internet.");
 
-		JLabel lblBanner = new JLabel();
-		lblBanner.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/fondoTres.png"))));
-		lblBanner.setBounds(0, 0, 500, 353);
-		add(lblBanner);
-
 		JLabel lblTitle = new JLabel("ELIGE LA CONVERSIÓN A REALIZAR");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -197,6 +192,11 @@ public class Principal extends JFrame {
 				}
             }
         });
+
+		JLabel lblBanner = new JLabel();
+		lblBanner.setIcon(new ImageIcon(Objects.requireNonNull(Principal.class.getResource("/images/fondoTres.png"))));
+		lblBanner.setBounds(0, 0, 500, 353);
+		add(lblBanner);
 	}
 
 	private static JLabel addLabelLink(String text, String url) {
